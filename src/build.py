@@ -74,7 +74,12 @@ HEAD = '''<!doctype html>
 <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=3">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{desc}">
+<meta property="og:image" content="https://www.northsideenginecompany.org/images/background-images/1218312023.jpg">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#A63A2E">
 </head><body><a class="skip" href="#main">Skip to content</a>'''
 
 DESC = "Northside Engine Company No. 4 — volunteer firefighters serving Tinton Falls, NJ since 1955."
@@ -347,8 +352,11 @@ page("contact-us.html", "Contact Us", f'''
 (OUT / "404.html").write_text(HEAD.format(title="Page not found | Northside Engine Company No. 4", desc=DESC) + nav("") +
     '<main id="main"><section class="page-head"><div class="wrap"><h1>Page not found</h1></div></section><div class="wrap" style="padding:72px 24px"><p class="lede">Sorry, that page doesn’t exist.</p><a class="btn btn-primary" href="/">Back to home</a></div></main>' + FOOTER + "</body></html>")
 (OUT / "styles.css").write_text((ROOT / "src/styles.css").read_text())
-# custom domain is set in GitHub Pages settings
-(OUT / ".nojekyll").write_text("")
+(OUT / "CNAME").write_text("www.northsideenginecompany.org\n")
+_pages = sorted(p.name for p in OUT.glob("*.html") if p.name != "404.html")
+(OUT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"  <url><loc>https://www.northsideenginecompany.org/{'' if n == 'index.html' else n}</loc></url>\n" for n in _pages) + "</urlset>\n")
+(OUT / "robots.txt").write_text("User-agent: *\nAllow: /\nSitemap: https://www.northsideenginecompany.org/sitemap.xml\n")
+(OUT / ".nojekyll").write_text("\n")
 os.makedirs(OUT / "images", exist_ok=True)
 (OUT / "images/favicon.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect x="2" y="2" width="60" height="60" rx="16" fill="#A63A2E"/><text x="32" y="45" font-family="Arial,sans-serif" font-weight="700" font-size="38" text-anchor="middle" fill="#fff">4</text></svg>')
 print("built", sorted(p.name for p in OUT.glob("*.html")))
