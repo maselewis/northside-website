@@ -41,10 +41,9 @@ def nav(cur):
         return '<ul class="sub">' + "".join(
             f'<li><a href="{h}"{" aria-current=page" if h == cur else ""}>{t}</a></li>' for h, t in group) + "</ul>"
     return f'''<header class="site-header"><div class="wrap">
-<a class="brand" href="./"><span class="badge">4</span><span><b>Northside Engine Co.</b><small>No. 4 · Tinton Falls, NJ</small></span></a>
+<a class="brand" href="./"><span class="badge">4</span><span><b>Northside Engine Co. No. 4</b><small>Tinton Falls, NJ</small></span></a>
 <button class="menu-toggle" aria-expanded="false" aria-controls="nav">Menu</button>
 <ul class="nav" id="nav">
-<li><a href="./"{" aria-current=page" if cur == "index.html" else ""}>Home</a></li>
 <li><a href="about-us.html">About</a>{sub(ABOUT_GROUP)}</li>
 <li><a href="join-northside.html">Join</a>{sub(JOIN_GROUP)}</li>
 <li><a href="dashboard.html">Resources</a>{sub(RES_GROUP)}</li>
@@ -74,7 +73,7 @@ HEAD = '''<!doctype html>
 <meta name="description" content="{desc}">
 <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head><body><a class="skip" href="#main">Skip to content</a>'''
 
@@ -101,15 +100,18 @@ cards = [("northside-fire-apparatus.html", "Our Apparatus", "Ladder 36-491, Engi
 card_html = "".join(f'<a class="card" href="{h}">{img(i, t)}<div><h3>{t}</h3><p>{d}</p><span class="more">Learn more →</span></div></a>' for h, t, d, i in cards)
 home = HEAD.format(title="Northside Engine Company No. 4 | Tinton Falls, NJ", desc=DESC) + nav("index.html") + f'''
 <main id="main">
-<section class="hero"><div class="wrap">
-<div class="kicker">Tinton Falls · Est. 1955</div>
-<h1>Serving the community since 1955.</h1>
-<p>Northside Engine Company No. 4 is an all-volunteer fire company protecting the Borough of Tinton Falls — answering 300+ calls a year, any day, any hour.</p>
-<div class="actions"><a class="btn btn-primary" href="join-northside.html">Join Northside</a><a class="btn btn-light" href="donate.html">Donate</a></div>
+<section class="hero"><div class="wrap hero-grid">
+<div>
+<span class="chip">Volunteer fire company · Since 1955</span>
+<h1>Your neighbors, ready when you call.</h1>
+<p>Northside Engine Company No. 4 has protected Tinton Falls since 1955. We answer 300+ calls a year, any day, any hour.</p>
+<div class="actions"><a class="btn btn-primary" href="join-northside.html">Join our team</a><a class="btn btn-outline" href="donate.html">Make a donation</a></div>
+</div>
+<div class="hero-photo">{img("background-images/1218312023.jpg", "Northside fire apparatus lined up outside Station 4")}</div>
 </div></section>
 <section class="stats"><div class="wrap">
-<div><b>1955</b><span>Chartered</span></div><div><b>300+</b><span>Calls per year</span></div>
-<div><b>15 yrs</b><span>Average member experience</span></div><div><b>100%</b><span>Volunteer</span></div>
+<div><b>1955</b><span>Year chartered</span></div><div><b>300+</b><span>Calls each year</span></div>
+<div><b>15 yrs</b><span>Average experience</span></div><div><b>100%</b><span>Volunteer</span></div>
 </div></section>
 <section class="section"><div class="wrap split">
 <div><span class="eyebrow">Who we are</span><h2>Neighbors protecting neighbors.</h2>
@@ -118,14 +120,14 @@ home = HEAD.format(title="Northside Engine Company No. 4 | Tinton Falls, NJ", de
 <div class="rounded">{img("northside-766-shrews_orig.jpg", "Northside apparatus")}</div>
 </div></section>
 <section class="section white"><div class="wrap">
-<span class="eyebrow">Around Northside</span><h2>Explore the company</h2>
+<h2>Get to know Northside</h2>
 <div class="cards">{card_html}</div>
 </div></section>
-<section class="section dark"><div class="wrap band">
-<div><span class="eyebrow">No experience needed</span><h2>Join Northside. All training included.</h2>
-<p class="lede">18+, valid NJ driver’s license, and 6 months’ residency in Tinton Falls or a neighboring town. Junior program available for under 18.</p></div>
-<a class="btn btn-primary" href="join-northside.html">How to Join</a>
-</div></section>
+<section class="section"><div class="wrap"><div class="panel band">
+<div><h2>Join Northside — no experience needed</h2>
+<p class="lede">All training is included. 18+, valid NJ driver’s license, and 6 months’ residency in Tinton Falls or a neighboring town. Junior program for under 18.</p></div>
+<a class="btn btn-light" href="join-northside.html">How to join</a>
+</div></div></section>
 <section class="section"><div class="wrap split">
 <div><span class="eyebrow">Annual Fund Drive</span><h2>Support your volunteer firefighters.</h2>
 <p class="lede">Donate securely online. Every dollar keeps our trucks and crews ready. Follow our latest news on <a href="{FB}">Facebook</a>.</p>
@@ -348,5 +350,5 @@ page("contact-us.html", "Contact Us", f'''
 # custom domain is set in GitHub Pages settings
 (OUT / ".nojekyll").write_text("")
 os.makedirs(OUT / "images", exist_ok=True)
-(OUT / "images/favicon.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="#B3121B" stroke="#C9A227" stroke-width="3"/><text x="32" y="45" font-family="Arial Narrow,Arial,sans-serif" font-weight="700" font-size="38" text-anchor="middle" fill="#fff">4</text></svg>')
+(OUT / "images/favicon.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect x="2" y="2" width="60" height="60" rx="16" fill="#A63A2E"/><text x="32" y="45" font-family="Arial,sans-serif" font-weight="700" font-size="38" text-anchor="middle" fill="#fff">4</text></svg>')
 print("built", sorted(p.name for p in OUT.glob("*.html")))
