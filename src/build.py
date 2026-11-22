@@ -16,7 +16,8 @@ ABOUT_GROUP = [("about-us.html", "About Us"), ("history.html", "History"),
                ("around-station-4.html", "Around Station 4"), ("northside-fire-apparatus.html", "Our Apparatus"),
                ("building-491.html", "Building 491"), ("491-wetdown.html", "491 Wetdown")]
 JOIN_GROUP = [("join-northside.html", "Join Northside"), ("find-a-fd-to-join.html", "Find a FD to Join")]
-RES_GROUP = [("dashboard.html", "Member Dashboard"), ("interesting-stuff.html", "Interesting Stuff")]
+RES_GROUP = [("members/", "Members Area"), ("interesting-stuff.html", "Interesting Stuff")]
+MEM_GROUP = [("members/", "Dashboard"), ("members/announcements.html", "Announcements"), ("members/documents.html", "Documents"), ("members/calendar.html", "Calendar"), ("api/logout", "Sign Out")]
 
 def img(path, alt="", cls=""):
     return f'<img src="images/{path}" alt="{html.escape(alt)}" loading="lazy"{f" class={cls!r}" if cls else ""}>'
@@ -46,7 +47,7 @@ def nav(cur):
 <ul class="nav" id="nav">
 <li><a href="about-us.html">About</a>{sub(ABOUT_GROUP)}</li>
 <li><a href="join-northside.html">Join</a>{sub(JOIN_GROUP)}</li>
-<li><a href="dashboard.html">Resources</a>{sub(RES_GROUP)}</li>
+<li><a href="members/">Members</a>{sub(RES_GROUP)}</li>
 <li><a href="contact-us.html"{" aria-current=page" if cur == "contact-us.html" else ""}>Contact</a></li>
 <li><a class="btn btn-primary" href="donate.html">Donate</a></li>
 </ul></div></header>'''
@@ -80,19 +81,21 @@ HEAD = '''<!doctype html>
 <meta property="og:image" content="https://www.northsideenginecompany.org/images/background-images/1218312023.jpg">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#A63A2E">
-</head><body><a class="skip" href="#main">Skip to content</a>'''
+{base}</head><body><a class="skip" href="#main">Skip to content</a>'''
 
 DESC = "Northside Engine Company No. 4 — volunteer firefighters serving Tinton Falls, NJ since 1955."
 
-def page(fn, title, body, crumbs=None, group=None):
+def page(fn, title, body, crumbs=None, group=None, base=False):
     side = ""
     if group:
         side = '<aside class="sidebar"><div class="box"><h3>In this section</h3><ul>' + "".join(
             f'<li><a href="{h}"{" aria-current=page" if h == fn else ""}>{t}</a></li>' for h, t in group) + "</ul></div></aside>"
-    crumb = f'<div class="crumbs"><a href="./">Home</a> / {crumbs}</div>' if crumbs else ""
-    doc = HEAD.format(title=f"{title} | Northside Engine Company No. 4", desc=DESC) + nav(fn)
+    crumb = f'<div class="crumbs"><a href="/">Home</a> / {crumbs}</div>' if crumbs else ""
+    doc = HEAD.format(title=f"{title} | Northside Engine Company No. 4", desc=DESC, base='<base href="/"><meta name="robots" content="noindex">' if base else "") + nav(fn)
     doc += f'<main id="main"><section class="page-head"><div class="wrap">{crumb}<h1>{title}</h1></div></section>'
     doc += f'<div class="wrap page-body"><article class="article">{body}</article>{side}</div></main>' + FOOTER + "</body></html>"
+    (OUT / fn).parent.mkdir(parents=True, exist_ok=True)
+    if base: doc = doc.replace('href="#main"', f'href="/{fn}#main"'.replace("/members/#","/members/#"))
     (OUT / fn).write_text(doc)
 
 # ---------------- HOME ----------------
@@ -103,7 +106,7 @@ cards = [("northside-fire-apparatus.html", "Our Apparatus", "Ladder 36-491, Engi
          ("officers--admin.html", "Officers & Admin", "Our line and administrative officers.", "published/off.jpeg"),
          ("building-491.html", "Building 491", "How our 100-ft Seagrave ladder came together in 2009.", "5396125-orig.jpg")]
 card_html = "".join(f'<a class="card" href="{h}">{img(i, t)}<div><h3>{t}</h3><p>{d}</p><span class="more">Learn more →</span></div></a>' for h, t, d, i in cards)
-home = HEAD.format(title="Northside Engine Company No. 4 | Tinton Falls, NJ", desc=DESC) + nav("index.html") + f'''
+home = HEAD.format(title="Northside Engine Company No. 4 | Tinton Falls, NJ", desc=DESC, base="") + nav("index.html") + f'''
 <main id="main">
 <section class="hero"><div class="wrap hero-grid">
 <div>
@@ -268,7 +271,7 @@ page("491-wetdown.html", "491 Wetdown", f'''
 
 def logos(items):
     return '<div class="logo-grid">' + "".join(f'<a href="{u}" target="_blank" rel="noopener">{img(i, t)}<span>{t}</span></a>' for i, u, t in items) + "</div>"
-page("dashboard.html", "Member Dashboard", f'''
+LINKS = f'''
 <h2>Operations</h2>
 {logos([("editor/370102801.png","https://dashboard.iamresponding.com/","IamResponding"),("editor/932996363.jpg","https://wiki.radioreference.com/index.php/Monmouth_County_(NJ)_Fire_Stations","Monmouth County Fire Stations"),
 ("editor/347787611.jpg","https://www.mcsonj.org/marp/marp-plans/","MARP Plans"),("editor/350790897.jpg","https://www.mcsonj.org/divisions/emergency-management/","MCSO Emergency Management"),
@@ -280,7 +283,8 @@ page("dashboard.html", "Member Dashboard", f'''
 ("601345759_orig.png","https://www.allhandsfire.com/Get-Trained","All Hands Fire"),("591766484_orig.png","https://www.keanfiresafety.com/","Kean Fire Safety")])}
 <h2>Tinton Falls Districts & Fire Companies</h2>
 {logos([("342127728_orig.png","https://www.tintonfallsfiredistrict2.com/","TF Fire District 2"),("published/210050470.png","http://www.tintonfallsfire.org/","Tinton Falls Fire"),
-("published/985095324.jpg","https://www.waysidefirecompany.com/","Wayside Fire Company"),("published/847025001.jpg","https://www.tintonfallsfiredistrict1.com/","TF Fire District 1")])}''', "Resources / Dashboard", RES_GROUP)
+("published/985095324.jpg","https://www.waysidefirecompany.com/","Wayside Fire Company"),("published/847025001.jpg","https://www.tintonfallsfiredistrict1.com/","TF Fire District 1")])}'''
+exec((ROOT / "src/members.py").read_text())
 
 page("join-northside.html", "Join Northside", f'''
 {fig("editor/memberstar.jpg")}
@@ -349,13 +353,13 @@ page("contact-us.html", "Contact Us", f'''
 <div class="video" style="aspect-ratio:16/10"><iframe src="https://www.google.com/maps?q=35+Springdale+Ave,+Tinton+Falls,+NJ+07724&output=embed" title="Map" loading="lazy"></iframe></div>''', "Contact Us")
 
 # 404 + favicon + CNAME + assets
-(OUT / "404.html").write_text(HEAD.format(title="Page not found | Northside Engine Company No. 4", desc=DESC) + nav("") +
+(OUT / "404.html").write_text(HEAD.format(title="Page not found | Northside Engine Company No. 4", desc=DESC, base="") + nav("") +
     '<main id="main"><section class="page-head"><div class="wrap"><h1>Page not found</h1></div></section><div class="wrap" style="padding:72px 24px"><p class="lede">Sorry, that page doesn’t exist.</p><a class="btn btn-primary" href="/">Back to home</a></div></main>' + FOOTER + "</body></html>")
 (OUT / "styles.css").write_text((ROOT / "src/styles.css").read_text())
 (OUT / "CNAME").write_text("www.northsideenginecompany.org\n")
-_pages = sorted(p.name for p in OUT.glob("*.html") if p.name != "404.html")
+_pages = sorted(p.name for p in OUT.glob("*.html") if p.name not in ("404.html", "login.html", "dashboard.html"))
 (OUT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"  <url><loc>https://www.northsideenginecompany.org/{'' if n == 'index.html' else n}</loc></url>\n" for n in _pages) + "</urlset>\n")
-(OUT / "robots.txt").write_text("User-agent: *\nAllow: /\nSitemap: https://www.northsideenginecompany.org/sitemap.xml\n")
+(OUT / "robots.txt").write_text("User-agent: *\nAllow: /\nDisallow: /members/\nSitemap: https://www.northsideenginecompany.org/sitemap.xml\n")
 (OUT / ".nojekyll").write_text("\n")
 os.makedirs(OUT / "images", exist_ok=True)
 (OUT / "images/favicon.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect x="2" y="2" width="60" height="60" rx="16" fill="#A63A2E"/><text x="32" y="45" font-family="Arial,sans-serif" font-weight="700" font-size="38" text-anchor="middle" fill="#fff">4</text></svg>')
