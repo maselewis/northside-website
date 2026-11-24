@@ -164,3 +164,34 @@ p{margin:0 0 1em}
 .lt-btns a:hover{background:var(--brick-dark)}
 .lt-drive{background:#C8901E}
 .lt-link[hidden]{display:none}
+
+/* fire department finder */
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.fd-search{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 6px}
+.fd-search input{flex:1 1 260px;font:400 17px/1.2 var(--font);padding:14px 16px;border:1.5px solid var(--line);border-radius:12px;background:#fff;color:var(--ink)}
+.fd-search input:focus{outline:2px solid var(--brick);border-color:var(--brick)}
+.fd-status{min-height:1.4em;color:var(--soft);font-size:16px;margin:8px 0}
+.fd-map{height:440px;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);background:var(--photo);z-index:0}
+@media (max-width:600px){.fd-map{height:340px}}
+.fd-pin{background:var(--brick);border:3px solid #fff;border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,.35)}
+.fd-pin.fd-home{background:none;border:0;border-radius:0;box-shadow:none}
+.fd-pin.fd-home img{width:34px!important;height:auto!important;filter:drop-shadow(0 2px 4px rgba(0,0,0,.4))}
+.fd-results{display:grid;gap:14px;margin:18px 0 8px}
+.fd-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+.fd-card-home{border:2px solid var(--brick);background:var(--tint)}
+.fd-card-top{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+.fd-card h3{margin:0 0 4px;font-size:20px}
+.fd-card p{margin:0 0 12px;color:var(--soft);font-size:16px}
+.fd-dist{font-weight:700;color:var(--brick);white-space:nowrap}
+.fd-actions{display:flex;flex-wrap:wrap;gap:8px}
+.fd-actions .btn{padding:10px 14px;font-size:14px}
+.leaflet-popup-content .fd-card{border:0;padding:0;background:none}
+.leaflet-popup-content .fd-card h3{font-size:16px}.leaflet-popup-content .fd-card p{font-size:13px;margin:0 0 8px}
+.leaflet-popup-content .fd-actions .btn{padding:7px 10px;font-size:12px;color:var(--navy)}
+.fd-table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:#fff}
+.fd-table{width:100%;border-collapse:collapse;font-size:15px}
+.fd-table th,.fd-table td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+.fd-table th{background:var(--tint);color:var(--navy);font-weight:700}
+.fd-table tr:last-child td{border-bottom:0}
+.fd-note{font-size:16px;color:var(--soft);margin-top:14px}
+.page-body>.article{min-width:0}
