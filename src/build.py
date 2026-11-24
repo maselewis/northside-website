@@ -9,6 +9,7 @@ OUT.mkdir(exist_ok=True)
 FB = "https://www.facebook.com/northsideenginecompany/"
 IG = "https://www.instagram.com/northsideengineco4/"
 EMAIL = "info@nsec4.org"
+VENMO = "https://account.venmo.com/u/northsidefire"
 ZEFFY = "https://www.zeffy.com/en-US/embed/donation-form/0aa583fd-22ea-407d-ae3f-dafd78c17bf9"
 
 ABOUT_GROUP = [("about-us.html", "About Us"), ("history.html", "History"),
@@ -350,13 +351,12 @@ page("contact-us.html", "Contact Us", f'''
 
 # ---------------- LINKS (Linktree-style page for social bios) ----------------
 LINKS = [
-    ("donate.html", "Donate to Northside", "Support your volunteer firefighters", True),
-    ("join-northside.html", "Join Northside", "Become a volunteer firefighter", False),
+    ("join-northside.html", "Join Northside", "Become a volunteer firefighter", True),
+    ("donate.html", "Donate to Northside", "Support your volunteer firefighters", False),
+    (VENMO, "Venmo", "@northsidefire", False),
     (IG, "Instagram", "@northsideengineco4", False),
     (FB, "Facebook", "Northside Engine Company", False),
     ("./", "Our Website", "northsideenginecompany.org", False),
-    ("northside-fire-apparatus.html", "Our Apparatus", "Ladder, engine, brush and rescue", False),
-    ("history.html", "Our History", "Serving Tinton Falls since 1955", False),
     (f"mailto:{EMAIL}", "Email Us", EMAIL, False),
     ("tel:+17327413205", "Call The Station", "732.741.3205 (non-emergency)", False),
 ]
@@ -365,13 +365,14 @@ _ICONS = {
     "join": '<circle cx="9" cy="8" r="4"/><path d="M2 21c0-3.9 3.1-7 7-7s7 3.1 7 7"/><path d="M19 8v6M16 11h6"/>',
     "instagram": '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>',
     "facebook": '<path d="M14 8h3V4h-3c-2.8 0-4 1.7-4 4.3V11H7v4h3v6h4v-6h3l1-4h-4V8.6c0-.4.3-.6.6-.6z"/>',
+    "venmo": '<path d="M17.5 3.5c.7 1.2 1 2.4 1 3.9 0 4.9-4.2 11.2-7.6 15.6H5.3L3 5.2l5-.5 1.3 10.2c1.2-2 2.7-5.1 2.7-7.2 0-1.2-.2-2-.5-2.6z"/>',
     "web": '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/>',
     "truck": '<path d="M2 16V8h11v8M13 11h4l4 4v1h-8"/><circle cx="6.5" cy="17.5" r="2"/><circle cx="17.5" cy="17.5" r="2"/>',
     "history": '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
     "email": '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',
     "phone": '<path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/>',
 }
-_icon_keys = ["donate", "join", "instagram", "facebook", "web", "truck", "history", "email", "phone"]
+_icon_keys = ["join", "donate", "venmo", "instagram", "facebook", "web", "email", "phone"]
 def _svg(k):
     return f'<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">{_ICONS[k]}</svg>'
 _link_items = "".join(
