@@ -365,6 +365,7 @@ _ICONS = {
     "instagram": '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>',
     "facebook": '<path d="M14 8h3V4h-3c-2.8 0-4 1.7-4 4.3V11H7v4h3v6h4v-6h3l1-4h-4V8.6c0-.4.3-.6.6-.6z"/>',
     "venmo": '<path d="M17.5 3.5c.7 1.2 1 2.4 1 3.9 0 4.9-4.2 11.2-7.6 15.6H5.3L3 5.2l5-.5 1.3 10.2c1.2-2 2.7-5.1 2.7-7.2 0-1.2-.2-2-.5-2.6z"/>',
+    "text": '<path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9l-5 4V6a1 1 0 0 1 1-1z"/><path d="M8 10h8M8 13h5"/>',
     "web": '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/>',
     "truck": '<path d="M2 16V8h11v8M13 11h4l4 4v1h-8"/><circle cx="6.5" cy="17.5" r="2"/><circle cx="17.5" cy="17.5" r="2"/>',
     "history": '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
@@ -388,7 +389,7 @@ _link_items += (f'<div class="lt-link lt-split"><span class="lt-ico">{_svg("phon
 <div class="lt-avatar">{img("northside-patch.png", "Northside Engine Co. patch")}</div>
 <h1>Northside Engine Co. No. 4</h1>
 <p class="lt-sub">Volunteer firefighters serving Tinton Falls, NJ since 1955</p>
-<div class="lt-social"><a href="{IG}" target="_blank" rel="noopener" aria-label="Instagram">{_svg("instagram")}</a><a href="{FB}" target="_blank" rel="noopener" aria-label="Facebook">{_svg("facebook")}</a><a href="{VENMO}" target="_blank" rel="noopener" aria-label="Venmo">{_svg("venmo")}</a><a href="mailto:{EMAIL}" aria-label="Email">{_svg("email")}</a></div>
+<div class="lt-social"><a href="{IG}" target="_blank" rel="noopener" aria-label="Instagram">{_svg("instagram")}</a><a href="{FB}" target="_blank" rel="noopener" aria-label="Facebook">{_svg("facebook")}</a><a href="{VENMO}" target="_blank" rel="noopener" aria-label="Venmo">{_svg("venmo")}</a><a href="mailto:{EMAIL}" aria-label="Email">{_svg("email")}</a><a href="tel:+17327413205" aria-label="Call">{_svg("phone")}</a><a href="sms:+17327413205" aria-label="Text">{_svg("text")}</a></div>
 <nav class="lt-links" aria-label="Northside links">{_link_items}</nav>
 <div class="lt-alert">For emergencies, always call 9-1-1</div>
 <p class="lt-foot">35 Springdale Ave · Tinton Falls, NJ 07724</p>
