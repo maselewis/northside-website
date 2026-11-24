@@ -42,7 +42,7 @@ def nav(cur):
         return '<ul class="sub">' + "".join(
             f'<li><a href="{h}"{" aria-current=page" if h == cur else ""}>{t}</a></li>' for h, t in group) + "</ul>"
     return f'''<header class="site-header"><div class="wrap">
-<a class="brand" href="./"><span class="badge">4</span><span><b>Northside Engine Co. No. 4</b><small>Tinton Falls, NJ</small></span></a>
+<a class="brand" href="./"><img class="badge-img" src="images/northside-patch-sm.png" alt="Northside Engine Co. No. 4 patch" width="40" height="47"><span><b>Northside Engine Co. No. 4</b><small>Tinton Falls, NJ</small></span></a>
 <button class="menu-toggle" aria-expanded="false" aria-controls="nav">Menu</button>
 <ul class="nav" id="nav">
 <li><a href="about-us.html">About</a>{sub(ABOUT_GROUP)}</li>
@@ -72,10 +72,10 @@ HEAD = '''<!doctype html>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{desc}">
-<link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="images/favicon-32.png" type="image/png" sizes="32x32"><link rel="icon" href="images/favicon-192.png" type="image/png" sizes="192x192"><link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=12">
+<link rel="stylesheet" href="styles.css?v=13">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
 <meta property="og:image" content="https://www.northsideenginecompany.org/images/background-images/1218312023.jpg">
@@ -285,6 +285,7 @@ page("dashboard.html", "Member Dashboard", f'''
 
 page("join-northside.html", "Join Northside", f'''
 <div class="recruit-banner"><b>Northside is looking for volunteers.</b> No experience needed. Training is free. <a href="#interest">Tell us you’re interested →</a></div>
+<p class="es-link" lang="es">¿Habla español? <a href="#espanol">Información en español ↓</a></p>
 <p class="lede">Northside Engine Company No. 4 has protected Tinton Falls since 1955, and every member is a volunteer. We answer 300+ calls a year, and we need neighbors who want to learn real skills, make a difference close to home, and be part of a crew that has each other’s backs.</p>
 <div class="stat-band">
 <div><b>62%</b><span>of U.S. firefighters are volunteers</span></div>
@@ -314,6 +315,10 @@ page("join-northside.html", "Join Northside", f'''
 <ol><li>At least 18 years old (or ask about the junior program)</li><li>Hold a valid NJ driver’s license</li><li>A resident of the Borough of Tinton Falls, Shrewsbury Township, Red Bank, Lincroft, Shrewsbury or Eatontown for at least 6 months</li></ol>
 <p>Firefighting isn’t just for one kind of person. Members come from all walks of life, and we welcome women, people of every background, and people who have never set foot in a firehouse.</p>
 
+<h2>See What It’s Like</h2>
+<p>A 30-second look at the fire service family, from the National Volunteer Fire Council.</p>
+{video("bXOvvW3Piso")}
+
 <h2>How It Works</h2>
 <ol class="steps">
 <li><b>Tell us you’re interested.</b> Use the form below, call or email. A member will reach out.</li>
@@ -338,6 +343,17 @@ page("join-northside.html", "Join Northside", f'''
 </div>
 
 <p><a class="download" href="images/joint_district_application_-_update_20210304.pdf">📄 Download the membership application (PDF, 126 KB)</a></p>
+<section class="es-block" id="espanol" lang="es">
+<h2>Únase a Northside — en español</h2>
+<p><b>Northside Engine Company No. 4 busca voluntarios.</b> Somos bomberos voluntarios que protegen a Tinton Falls desde 1955. No necesita experiencia: le damos todo el entrenamiento, y es gratis.</p>
+<h3>Requisitos</h3>
+<ul><li>Tener al menos 18 años (pregúntenos sobre el programa juvenil para menores de 18)</li><li>Tener una licencia de conducir válida de Nueva Jersey</li><li>Vivir desde hace al menos 6 meses en Tinton Falls, Shrewsbury Township, Red Bank, Lincroft, Shrewsbury o Eatontown</li></ul>
+<h3>Lo que recibe</h3>
+<ul><li>Certificación estatal de Bombero I en la academia de bomberos del condado, sin costo</li><li>Habilidades reales que le ayudan a proteger a su familia</li><li>Ahorros para la jubilación (LOSAP) y seguro de vida</li><li>Exención de matrícula de hasta $600 al año para usted y su familia</li><li>Una segunda familia en la estación</li></ul>
+<p>Para empezar, llene el formulario de abajo (puede escribir en español) o llámenos al <a href="tel:+17327413205">732.741.3205</a>.</p>
+{video("Ct85SeIAz2E")}
+<p class="src-note">Video: National Volunteer Fire Council. Para familias: <a href="https://nvfc.org/wp-content/uploads/2024/08/FamilyGuide-2nd_Spanish-Latin-America.pdf">guía para familias de bomberos nuevos (PDF, en español)</a>.</p>
+</section>
 <h2 id="interest">Tell Us You’re Interested</h2>
 <p>Fill this out and a member will reach out to answer your questions and set up a time to visit Station 4. It only takes a minute.</p>
 <form class="join-form" id="join-form" action="https://formsubmit.co/{EMAIL}" method="POST">
@@ -442,6 +458,7 @@ page("find-a-fd-to-join.html", "Find A Fire Department", f'''
 <p>One important factor when joining is how close the department is to your home or job. No one expects you to make every call, but you need to be able to respond in a reasonable time. Most people choose a department near home; some with flexible jobs respond during the day.</p>
 <div class="recruit-banner"><b>Almost every company on this map relies on volunteers.</b> In a national survey, nearly two-thirds of people weren’t sure their local fire department was looking for help. <a href="https://www.nvfc.org/RR-Research">They are.</a></div>
 <p>No experience is needed, training is free, and there are roles for people who never go inside a burning building: fire police, fundraising, fire safety education and support. <a href="join-northside.html">See what joining Northside looks like →</a></p>
+<p class="es-link" lang="es">¿Habla español? <a href="join-northside.html#espanol">Información para unirse a Northside en español →</a></p>
 <h2>Find The Closest Department</h2>
 <p>Enter your home or work address to see the volunteer fire companies nearest you. Each department is set up and run a little differently, so reaching out to the one you’re interested in is the best way to learn more.</p>
 <form class="fd-search" id="fd-form" role="search">
@@ -487,7 +504,9 @@ f.addEventListener("submit",function(e){{
 }});
 }})();
 </script>
-{video("eR98LQtCyiQ")}
+<h2>See What It’s Like</h2>
+<p>Ride along with volunteer firefighters in this episode of <i>Ride With Us</i> from the National Volunteer Fire Council.</p>
+{video("shBeip_IyXU")}
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script>
@@ -507,28 +526,41 @@ D.forEach(function(d){{d.m=L.marker([d.lat,d.lng],{{icon:pin(d.name.indexOf("Nor
 map.fitBounds(L.latLngBounds(D.map(function(d){{return[d.lat,d.lng]}})),{{padding:[20,20]}});
 var you=null,st=document.getElementById("fd-status"),res=document.getElementById("fd-results");
 function miles(a,b,c,e){{var R=3958.8,r=Math.PI/180,x=(c-a)*r,y=(e-b)*r,h=Math.sin(x/2)*Math.sin(x/2)+Math.cos(a*r)*Math.cos(c*r)*Math.sin(y/2)*Math.sin(y/2);return 2*R*Math.asin(Math.sqrt(h))}}
-function show(lat,lng,label){{
+var ALIAS={{"middletown township":"Middletown","township of middletown":"Middletown","ocean township":"Ocean Township","township of ocean":"Ocean Township","neptune township":"Neptune","township of neptune":"Neptune","colts neck township":"Colts Neck","holmdel township":"Holmdel"}};
+function townOf(a){{if(!a)return"";var t=a.town||a.city||a.village||a.municipality||"";var k=t.toLowerCase();return ALIAS[k]||t.replace(/^(Borough|Township|City) of /i,"")}}
+function show(lat,lng,label,town){{
   if(you)map.removeLayer(you);
   you=L.circleMarker([lat,lng],{{radius:9,color:"#24324A",weight:3,fillColor:"#fff",fillOpacity:1}}).addTo(map).bindTooltip("You",{{permanent:false}});
-  var list=D.map(function(d){{return{{d:d,mi:miles(lat,lng,d.lat,d.lng)}}}}).sort(function(a,b){{return a.mi-b.mi}}).slice(0,5);
+  var list=D.map(function(d){{return{{d:d,mi:miles(lat,lng,d.lat,d.lng)}}}}).sort(function(a,b){{return a.mi-b.mi}}).slice(0,4);
   st.textContent="Closest departments to "+label+" (straight-line distance):";
-  res.innerHTML=list.map(function(x){{return card(x.d,x.mi)}}).join("");
+  var html="";
+  if(town){{
+    var inTown=D.filter(function(d){{return d.town.toLowerCase()===town.toLowerCase()}}).map(function(d){{return{{d:d,mi:miles(lat,lng,d.lat,d.lng)}}}}).sort(function(a,b){{return a.mi-b.mi}});
+    if(inTown.length){{
+      html+='<div class="fd-town"><h3>Fire companies in '+esc(town)+'</h3><p>'+(inTown.length>1?"These companies serve "+esc(town)+". The one closest to you usually covers your neighborhood, but call or visit to confirm who responds to your address.":"This company serves "+esc(town)+".")+'</p></div>'+inTown.slice(0,4).map(function(x){{return card(x.d,x.mi)}}).join("")+(inTown.length>4?'<p class="fd-more">'+(inTown.length-4)+' more '+esc(town)+' companies are in the list below.</p>':"");
+      var ids=inTown.slice(0,4).map(function(x){{return x.d.name}});list=list.filter(function(x){{return ids.indexOf(x.d.name)<0}});
+      if(list.length)html+='<div class="fd-town"><h3>Also nearby</h3></div>';
+    }}else{{
+      html+='<div class="fd-town"><p>We don’t list fire companies in '+esc(town)+' yet. Here are the closest ones we know of, or search <a href="https://www.makemeafirefighter.org/">MakeMeAFirefighter.org</a>.</p></div>';
+    }}
+  }}
+  res.innerHTML=html+list.map(function(x){{return card(x.d,x.mi)}}).join("");
   map.fitBounds(L.latLngBounds([[lat,lng]].concat(list.slice(0,3).map(function(x){{return[x.d.lat,x.d.lng]}}))),{{padding:[40,40],maxZoom:14}});
   if(list[0].mi>15)st.textContent="That address is outside our area. These are the closest departments we list, but there is likely one closer to you.";
 }}
 document.getElementById("fd-form").addEventListener("submit",function(e){{
   e.preventDefault();var q=document.getElementById("fd-q").value.trim();if(!q)return;
   st.textContent="Searching…";res.innerHTML="";
-  var url="https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=us&q="+encodeURIComponent(/\\bnj\\b|new jersey/i.test(q)?q:q+", New Jersey");
+  var url="https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&limit=1&countrycodes=us&q="+encodeURIComponent(/\\bnj\\b|new jersey/i.test(q)?q:q+", New Jersey");
   fetch(url,{{headers:{{"Accept-Language":"en"}}}}).then(function(r){{return r.json()}}).then(function(j){{
     if(!j.length){{st.textContent="We couldn’t find that address. Try adding the town or ZIP code.";return}}
-    show(+j[0].lat,+j[0].lon,j[0].display_name.split(",").slice(0,3).join(","));
+    show(+j[0].lat,+j[0].lon,j[0].display_name.split(",").slice(0,3).join(","),townOf(j[0].address));
   }}).catch(function(){{st.textContent="Address search is unavailable right now. Use the map or the list below."}});
 }});
 document.getElementById("fd-loc").addEventListener("click",function(){{
   if(!navigator.geolocation){{st.textContent="Your browser can’t share its location.";return}}
   st.textContent="Finding your location…";
-  navigator.geolocation.getCurrentPosition(function(p){{show(p.coords.latitude,p.coords.longitude,"your location")}},function(){{st.textContent="Location wasn’t shared. Type your address instead."}},{{timeout:10000}});
+  navigator.geolocation.getCurrentPosition(function(p){{var la=p.coords.latitude,lo=p.coords.longitude;fetch("https://nominatim.openstreetmap.org/reverse?format=json&zoom=14&lat="+la+"&lon="+lo).then(function(r){{return r.json()}}).then(function(j){{show(la,lo,"your location",townOf(j.address))}}).catch(function(){{show(la,lo,"your location","")}})}},function(){{st.textContent="Location wasn’t shared. Type your address instead."}},{{timeout:10000}});
 }});
 }})();
 </script>''', "Join / Find A Fire Department", JOIN_GROUP)

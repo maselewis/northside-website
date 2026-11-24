@@ -3,17 +3,17 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Find A Fire Department | Northside Engine Company No. 4</title>
 <meta name="description" content="Northside Engine Company No. 4 — volunteer firefighters serving Tinton Falls, NJ since 1955.">
-<link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="images/favicon-32.png" type="image/png" sizes="32x32"><link rel="icon" href="images/favicon-192.png" type="image/png" sizes="192x192"><link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=12">
+<link rel="stylesheet" href="styles.css?v=13">
 <meta property="og:title" content="Find A Fire Department | Northside Engine Company No. 4">
 <meta property="og:description" content="Northside Engine Company No. 4 — volunteer firefighters serving Tinton Falls, NJ since 1955.">
 <meta property="og:image" content="https://www.northsideenginecompany.org/images/background-images/1218312023.jpg">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#A63A2E">
 </head><body><a class="skip" href="#main">Skip to content</a><header class="site-header"><div class="wrap">
-<a class="brand" href="./"><span class="badge">4</span><span><b>Northside Engine Co. No. 4</b><small>Tinton Falls, NJ</small></span></a>
+<a class="brand" href="./"><img class="badge-img" src="images/northside-patch-sm.png" alt="Northside Engine Co. No. 4 patch" width="40" height="47"><span><b>Northside Engine Co. No. 4</b><small>Tinton Falls, NJ</small></span></a>
 <button class="menu-toggle" aria-expanded="false" aria-controls="nav">Menu</button>
 <ul class="nav" id="nav">
 <li><a href="about-us.html">About</a><ul class="sub"><li><a href="about-us.html">About Us</a></li><li><a href="history.html">History</a></li><li><a href="officers--admin.html">Officers & Admin</a></li><li><a href="fire-scene-images.html">Fire Scene Images</a></li><li><a href="around-station-4.html">Around Station 4</a></li><li><a href="northside-fire-apparatus.html">Our Apparatus</a></li><li><a href="building-491.html">Building 491</a></li><li><a href="491-wetdown.html">491 Wetdown</a></li></ul></li>
@@ -26,6 +26,7 @@
 <p>One important factor when joining is how close the department is to your home or job. No one expects you to make every call, but you need to be able to respond in a reasonable time. Most people choose a department near home; some with flexible jobs respond during the day.</p>
 <div class="recruit-banner"><b>Almost every company on this map relies on volunteers.</b> In a national survey, nearly two-thirds of people weren’t sure their local fire department was looking for help. <a href="https://www.nvfc.org/RR-Research">They are.</a></div>
 <p>No experience is needed, training is free, and there are roles for people who never go inside a burning building: fire police, fundraising, fire safety education and support. <a href="join-northside.html">See what joining Northside looks like →</a></p>
+<p class="es-link" lang="es">¿Habla español? <a href="join-northside.html#espanol">Información para unirse a Northside en español →</a></p>
 <h2>Find The Closest Department</h2>
 <p>Enter your home or work address to see the volunteer fire companies nearest you. Each department is set up and run a little differently, so reaching out to the one you’re interested in is the best way to learn more.</p>
 <form class="fd-search" id="fd-form" role="search">
@@ -71,7 +72,9 @@ f.addEventListener("submit",function(e){
 });
 })();
 </script>
-<div class="video"><iframe src="https://www.youtube.com/embed/eR98LQtCyiQ" title="YouTube video" allowfullscreen loading="lazy"></iframe></div>
+<h2>See What It’s Like</h2>
+<p>Ride along with volunteer firefighters in this episode of <i>Ride With Us</i> from the National Volunteer Fire Council.</p>
+<div class="video"><iframe src="https://www.youtube.com/embed/shBeip_IyXU" title="YouTube video" allowfullscreen loading="lazy"></iframe></div>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script>
@@ -91,28 +94,41 @@ D.forEach(function(d){d.m=L.marker([d.lat,d.lng],{icon:pin(d.name.indexOf("North
 map.fitBounds(L.latLngBounds(D.map(function(d){return[d.lat,d.lng]})),{padding:[20,20]});
 var you=null,st=document.getElementById("fd-status"),res=document.getElementById("fd-results");
 function miles(a,b,c,e){var R=3958.8,r=Math.PI/180,x=(c-a)*r,y=(e-b)*r,h=Math.sin(x/2)*Math.sin(x/2)+Math.cos(a*r)*Math.cos(c*r)*Math.sin(y/2)*Math.sin(y/2);return 2*R*Math.asin(Math.sqrt(h))}
-function show(lat,lng,label){
+var ALIAS={"middletown township":"Middletown","township of middletown":"Middletown","ocean township":"Ocean Township","township of ocean":"Ocean Township","neptune township":"Neptune","township of neptune":"Neptune","colts neck township":"Colts Neck","holmdel township":"Holmdel"};
+function townOf(a){if(!a)return"";var t=a.town||a.city||a.village||a.municipality||"";var k=t.toLowerCase();return ALIAS[k]||t.replace(/^(Borough|Township|City) of /i,"")}
+function show(lat,lng,label,town){
   if(you)map.removeLayer(you);
   you=L.circleMarker([lat,lng],{radius:9,color:"#24324A",weight:3,fillColor:"#fff",fillOpacity:1}).addTo(map).bindTooltip("You",{permanent:false});
-  var list=D.map(function(d){return{d:d,mi:miles(lat,lng,d.lat,d.lng)}}).sort(function(a,b){return a.mi-b.mi}).slice(0,5);
+  var list=D.map(function(d){return{d:d,mi:miles(lat,lng,d.lat,d.lng)}}).sort(function(a,b){return a.mi-b.mi}).slice(0,4);
   st.textContent="Closest departments to "+label+" (straight-line distance):";
-  res.innerHTML=list.map(function(x){return card(x.d,x.mi)}).join("");
+  var html="";
+  if(town){
+    var inTown=D.filter(function(d){return d.town.toLowerCase()===town.toLowerCase()}).map(function(d){return{d:d,mi:miles(lat,lng,d.lat,d.lng)}}).sort(function(a,b){return a.mi-b.mi});
+    if(inTown.length){
+      html+='<div class="fd-town"><h3>Fire companies in '+esc(town)+'</h3><p>'+(inTown.length>1?"These companies serve "+esc(town)+". The one closest to you usually covers your neighborhood, but call or visit to confirm who responds to your address.":"This company serves "+esc(town)+".")+'</p></div>'+inTown.slice(0,4).map(function(x){return card(x.d,x.mi)}).join("")+(inTown.length>4?'<p class="fd-more">'+(inTown.length-4)+' more '+esc(town)+' companies are in the list below.</p>':"");
+      var ids=inTown.slice(0,4).map(function(x){return x.d.name});list=list.filter(function(x){return ids.indexOf(x.d.name)<0});
+      if(list.length)html+='<div class="fd-town"><h3>Also nearby</h3></div>';
+    }else{
+      html+='<div class="fd-town"><p>We don’t list fire companies in '+esc(town)+' yet. Here are the closest ones we know of, or search <a href="https://www.makemeafirefighter.org/">MakeMeAFirefighter.org</a>.</p></div>';
+    }
+  }
+  res.innerHTML=html+list.map(function(x){return card(x.d,x.mi)}).join("");
   map.fitBounds(L.latLngBounds([[lat,lng]].concat(list.slice(0,3).map(function(x){return[x.d.lat,x.d.lng]}))),{padding:[40,40],maxZoom:14});
   if(list[0].mi>15)st.textContent="That address is outside our area. These are the closest departments we list, but there is likely one closer to you.";
 }
 document.getElementById("fd-form").addEventListener("submit",function(e){
   e.preventDefault();var q=document.getElementById("fd-q").value.trim();if(!q)return;
   st.textContent="Searching…";res.innerHTML="";
-  var url="https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=us&q="+encodeURIComponent(/\bnj\b|new jersey/i.test(q)?q:q+", New Jersey");
+  var url="https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&limit=1&countrycodes=us&q="+encodeURIComponent(/\bnj\b|new jersey/i.test(q)?q:q+", New Jersey");
   fetch(url,{headers:{"Accept-Language":"en"}}).then(function(r){return r.json()}).then(function(j){
     if(!j.length){st.textContent="We couldn’t find that address. Try adding the town or ZIP code.";return}
-    show(+j[0].lat,+j[0].lon,j[0].display_name.split(",").slice(0,3).join(","));
+    show(+j[0].lat,+j[0].lon,j[0].display_name.split(",").slice(0,3).join(","),townOf(j[0].address));
   }).catch(function(){st.textContent="Address search is unavailable right now. Use the map or the list below."});
 });
 document.getElementById("fd-loc").addEventListener("click",function(){
   if(!navigator.geolocation){st.textContent="Your browser can’t share its location.";return}
   st.textContent="Finding your location…";
-  navigator.geolocation.getCurrentPosition(function(p){show(p.coords.latitude,p.coords.longitude,"your location")},function(){st.textContent="Location wasn’t shared. Type your address instead."},{timeout:10000});
+  navigator.geolocation.getCurrentPosition(function(p){var la=p.coords.latitude,lo=p.coords.longitude;fetch("https://nominatim.openstreetmap.org/reverse?format=json&zoom=14&lat="+la+"&lon="+lo).then(function(r){return r.json()}).then(function(j){show(la,lo,"your location",townOf(j.address))}).catch(function(){show(la,lo,"your location","")})},function(){st.textContent="Location wasn’t shared. Type your address instead."},{timeout:10000});
 });
 })();
 </script></article><aside class="sidebar"><div class="box"><h3>In this section</h3><ul><li><a href="join-northside.html">Join Northside</a></li><li><a href="find-a-fd-to-join.html" aria-current=page>Find A Fire Department</a></li></ul></div></aside></div></main><footer class="site-footer"><div class="wrap">
