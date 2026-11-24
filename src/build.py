@@ -386,7 +386,7 @@ _link_items = "".join(
 <div class="lt-avatar">{img("northside-patch.png", "Northside Engine Co. patch")}</div>
 <h1>Northside Engine Co. No. 4</h1>
 <p class="lt-sub">Volunteer firefighters serving Tinton Falls, NJ since 1955</p>
-<div class="lt-social"><a href="{IG}" target="_blank" rel="noopener" aria-label="Instagram">{_svg("instagram")}</a><a href="{FB}" target="_blank" rel="noopener" aria-label="Facebook">{_svg("facebook")}</a><a href="mailto:{EMAIL}" aria-label="Email">{_svg("email")}</a></div>
+<div class="lt-social"><a href="{IG}" target="_blank" rel="noopener" aria-label="Instagram">{_svg("instagram")}</a><a href="{FB}" target="_blank" rel="noopener" aria-label="Facebook">{_svg("facebook")}</a><a href="{VENMO}" target="_blank" rel="noopener" aria-label="Venmo">{_svg("venmo")}</a><a href="mailto:{EMAIL}" aria-label="Email">{_svg("email")}</a></div>
 <nav class="lt-links" aria-label="Northside links">{_link_items}</nav>
 <div class="lt-alert">For emergencies, always call 9-1-1</div>
 <p class="lt-foot">35 Springdale Ave · Tinton Falls, NJ 07724</p>
