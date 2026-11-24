@@ -158,3 +158,7 @@ p{margin:0 0 1em}
 .lt-primary .lt-ico{background:rgba(255,255,255,.18);color:#fff}
 .lt-alert{margin-top:26px;color:#fff;font-weight:700;font-size:15px;background:rgba(166,58,46,.35);border:1px solid rgba(255,255,255,.15);padding:12px;border-radius:12px}
 .lt-foot{color:#9AA6B8;font-size:14px;margin-top:14px}
+.lt-split:hover{transform:none;box-shadow:none}
+.lt-btns{display:flex;gap:8px;flex:none}
+.lt-btns a{font:700 15px/1 var(--font);text-decoration:none;color:#fff;background:var(--brick);padding:11px 14px;border-radius:10px}
+.lt-btns a:hover{background:var(--brick-dark)}

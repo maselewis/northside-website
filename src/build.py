@@ -75,7 +75,7 @@ HEAD = '''<!doctype html>
 <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=4">
+<link rel="stylesheet" href="styles.css?v=5">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
 <meta property="og:image" content="https://www.northsideenginecompany.org/images/background-images/1218312023.jpg">
@@ -358,7 +358,6 @@ LINKS = [
     (FB, "Facebook", "Northside Engine Company", False),
     ("./", "Our Website", "northsideenginecompany.org", False),
     (f"mailto:{EMAIL}", "Email Us", EMAIL, False),
-    ("tel:+17327413205", "Call The Station", "732.741.3205 (non-emergency)", False),
 ]
 _ICONS = {
     "donate": '<path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 5 6.4 5c2 0 3.6 1.1 4.6 2.6C12 6.1 13.6 5 15.6 5 19 5 21.1 8.4 19.6 11.8 17.5 16.4 12 21 12 21z"/>',
@@ -372,13 +371,16 @@ _ICONS = {
     "email": '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',
     "phone": '<path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/>',
 }
-_icon_keys = ["join", "donate", "venmo", "instagram", "facebook", "web", "email", "phone"]
+_icon_keys = ["join", "donate", "venmo", "instagram", "facebook", "web", "email"]
 def _svg(k):
     return f'<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">{_ICONS[k]}</svg>'
 _link_items = "".join(
     f'<a class="lt-link{" lt-primary" if pri else ""}" href="{h}"{" target=_blank rel=noopener" if h.startswith("http") else ""}>'
     f'<span class="lt-ico">{_svg(k)}</span><span class="lt-txt"><b>{html.escape(t)}</b><small>{html.escape(d)}</small></span><span class="lt-arrow" aria-hidden="true">→</span></a>'
     for (h, t, d, pri), k in zip(LINKS, _icon_keys))
+_link_items += (f'<div class="lt-link lt-split"><span class="lt-ico">{_svg("phone")}</span>'
+    '<span class="lt-txt"><b>Call Or Text</b><small>732.741.3205</small></span>'
+    '<span class="lt-btns"><a href="tel:+17327413205">Call</a><a href="sms:+17327413205">Text</a></span></div>')
 (OUT / "links.html").write_text(HEAD.format(title="Links | Northside Engine Company No. 4", desc=DESC).replace("<body>", '<body class="lt-body">') + f'''
 <main id="main" class="lt">
 <div class="lt-cover">{img("background-images/1218312023.jpg", "Northside fire apparatus outside Station 4")}</div>
