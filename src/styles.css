@@ -209,3 +209,6 @@ p{margin:0 0 1em}
 .join-form button{justify-self:start}
 .jf-status{margin:0;font-weight:500}.jf-status.ok{color:#2E7D4F}.jf-status.err{color:var(--brick)}
 .jf-alt{font-size:16px;color:var(--soft)}
+.fd-suggest{margin:14px 0 24px}
+.fd-suggest summary{cursor:pointer;font-weight:700;color:var(--brick);font-size:17px}
+.fd-suggest[open] summary{margin-bottom:4px}
