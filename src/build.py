@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Builds the Northside Engine Company static site into ../site/"""
-import html, os, pathlib
+import html, json, os, pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / "docs"
@@ -16,7 +16,7 @@ ABOUT_GROUP = [("about-us.html", "About Us"), ("history.html", "History"),
                ("officers--admin.html", "Officers & Admin"), ("fire-scene-images.html", "Fire Scene Images"),
                ("around-station-4.html", "Around Station 4"), ("northside-fire-apparatus.html", "Our Apparatus"),
                ("building-491.html", "Building 491"), ("491-wetdown.html", "491 Wetdown")]
-JOIN_GROUP = [("join-northside.html", "Join Northside"), ("find-a-fd-to-join.html", "Find a FD to Join")]
+JOIN_GROUP = [("join-northside.html", "Join Northside"), ("find-a-fd-to-join.html", "Find A Fire Department")]
 RES_GROUP = [("dashboard.html", "Member Dashboard"), ("interesting-stuff.html", "Interesting Stuff")]
 
 def img(path, alt="", cls=""):
@@ -75,7 +75,7 @@ HEAD = '''<!doctype html>
 <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=7">
+<link rel="stylesheet" href="styles.css?v=8">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
 <meta property="og:image" content="https://www.northsideenginecompany.org/images/background-images/1218312023.jpg">
@@ -307,19 +307,98 @@ page("join-northside.html", "Join Northside", f'''
 <h3>Jury Duty</h3><p>Active volunteer firefighters may request to be excused from jury duty with verification of active membership. See the <a href="http://www.judiciary.state.nj.us/juryreporting/juryfqa.pdf">state website</a>.</p>
 {fig("firelogo_orig.gif")}''', "Join / Join Northside", JOIN_GROUP)
 
-deps = [("Tinton Falls Fire Company No. 1","https://www.facebook.com/TFFC1/"),("Wayside","https://www.waysidefirecompany.com/"),("Pine Brook","https://www.facebook.com/PineBrookFireCo/"),
-        ("Northside Engine Company No. 4","join-northside.html"),("Shrewsbury","http://www.shrewsburyhosecompany.com/"),("Red Bank","https://www.redbankfire.org/"),
-        ("Lincroft","https://www.lfc10.org/"),("Eatontown","https://eatontownfd.com/"),("Colts Neck","https://www.cnfd.org/"),("Oakhurst","https://www.facebook.com/OakhurstIndependentHoseCompanyNo.1/")]
-page("find-a-fd-to-join.html", "Become a Firefighter", f'''
+# Fire departments for the finder map. lat/lng from OpenStreetMap; phone "" = none published.
+FIRE_DEPTS = [
+    # name, town, address, phone, website, lat, lng
+    ("Northside Engine Company No. 4", "Tinton Falls", "35 Springdale Ave, Tinton Falls, NJ 07724", "732-741-3205", "join-northside.html", 40.33559, -74.08247),
+    ("Tinton Falls Fire Company No. 1", "Tinton Falls", "695 Tinton Ave, Tinton Falls, NJ 07724", "732-542-4422", "https://www.facebook.com/TFFC1/", 40.30424, -74.09916),
+    ("Wayside Fire Company", "Tinton Falls", "2 Volunteer Way, Tinton Falls, NJ 07753", "", "https://www.waysidefirecompany.com/", 40.24494, -74.09499),
+    ("Pine Brook Fire Company", "Tinton Falls", "70 Hamilton Rd, Tinton Falls, NJ 07724", "", "https://www.facebook.com/PineBrookFireCo/", 40.28700, -74.09609),
+    ("Eatontown Fire Department", "Eatontown", "47 Broad St, Eatontown, NJ 07724", "", "https://eatontownfd.com/", 40.30587, -74.05828),
+    ("Shrewsbury Hose Company No. 1", "Shrewsbury", "783 Broad St, Shrewsbury, NJ 07702", "", "http://www.shrewsburyhosecompany.com/", 40.32572, -74.06176),
+    ("Red Bank Fire Department", "Red Bank", "7-9 Mechanic St, Red Bank, NJ 07701", "732-530-2700", "https://www.redbankfire.org/", 40.35145, -74.06491),
+    ("Little Silver Fire Company", "Little Silver", "543 Prospect Ave, Little Silver, NJ 07739", "", "https://www.littlesilverfd.org/", 40.33724, -74.04003),
+    ("Oceanport Hook & Ladder Company", "Oceanport", "21 Main St, Oceanport, NJ 07757", "732-542-6928", "https://www.ophl.org/", 40.31303, -74.03302),
+    ("Port-Au-Peck Chemical Hose Company", "Oceanport", "433 Myrtle Ave, Oceanport, NJ 07757", "732-229-9771", "https://www.portaupeckfire.org/", 40.32046, -74.01631),
+    ("West Long Branch Fire Company No. 1", "West Long Branch", "385 Monmouth Rd, West Long Branch, NJ 07764", "", "", 40.28411, -74.01929),
+    ("Oakhurst Independent Hose Company", "Ocean Township", "72 Larkin Pl, Oakhurst, NJ 07755", "732-222-4624", "https://www.facebook.com/OakhurstIndependentHoseCompanyNo.1/", 40.26832, -74.01977),
+    ("Wanamassa Fire Company", "Ocean Township", "2001 Sunset Ave, Ocean Township, NJ 07712", "732-775-9784", "https://www.wanamassafirecompany.com/", 40.23166, -74.02478),
+    ("Hamilton Fire Company", "Neptune", "2420 Heck Ave, Neptune, NJ 07753", "", "", 40.21058, -74.08543),
+    ("Liberty Fire Company", "Neptune", "1518 Monroe Ave, Neptune, NJ 07753", "", "", 40.22092, -74.03052),
+    ("Unexcelled Fire Company", "Neptune", "1120 Corlies Ave, Neptune, NJ 07753", "", "", 40.21053, -74.01782),
+    ("Shark River Hills Fire Company", "Neptune", "200 Brighton Ave, Neptune, NJ 07753", "", "", 40.20135, -74.05368),
+    ("Colts Neck Fire Company No. 1", "Colts Neck", "123 County Rd 537, Colts Neck, NJ 07722", "", "https://www.cnfd.org/", 40.28580, -74.18270),
+    ("Colts Neck Fire Company No. 2", "Colts Neck", "50 Conover Rd, Colts Neck, NJ 07722", "", "https://www.cnfd.org/", 40.31540, -74.19040),
+    ("Lincroft Fire Company", "Middletown", "601 Newman Springs Rd, Lincroft, NJ 07738", "", "https://www.lfc10.org/", 40.33130, -74.11755),
+]
+_fd_json = json.dumps([dict(zip(["name", "town", "addr", "phone", "web", "lat", "lng"], d)) for d in FIRE_DEPTS])
+_fd_rows = "".join(
+    f'<tr><td><b>{html.escape(n)}</b></td><td>{html.escape(t)}</td><td>{html.escape(a)}</td>'
+    f'<td>{f"<a href=tel:+1{ph.replace(chr(45), str())}>{ph}</a>" if ph else "—"}</td>'
+    f'<td>{f"<a href={w!r}>Website</a>" if w else "—"}</td></tr>'
+    for n, t, a, ph, w, _, _ in sorted(FIRE_DEPTS, key=lambda d: (d[1], d[0])))
+page("find-a-fd-to-join.html", "Find A Fire Department", f'''
 <p class="lede">Most fire departments across the country depend on dedicated volunteers from their local communities, and we are no different. If you’re interested in getting involved, we’d love to meet you.</p>
-<p>There are many fire departments around the Tinton Falls area, and finding the right one usually starts with finding the closest. Each department is set up and run a little differently, so contacting the one you’re interested in is the best way to learn more.</p>
-<h2>Find Your Local Fire Department</h2>
 <p>One important factor when joining is how close the department is to your home or job. No one expects you to make every call, but you need to be able to respond in a reasonable time. Most people choose a department near home; some with flexible jobs respond during the day.</p>
-<h3>Nearby fire departments</h3>
-<ul>{"".join(f'<li><a href="{u}">{n}</a></li>' for n, u in deps)}</ul>
+<h2>Find The Closest Department</h2>
+<p>Enter your home or work address to see the volunteer fire companies nearest you. Each department is set up and run a little differently, so reaching out to the one you’re interested in is the best way to learn more.</p>
+<form class="fd-search" id="fd-form" role="search">
+<label for="fd-q" class="sr">Your address</label>
+<input id="fd-q" type="text" placeholder="Street address, town or ZIP" autocomplete="street-address" required>
+<button class="btn btn-primary" type="submit">Search</button>
+<button class="btn btn-outline" type="button" id="fd-loc">Use my location</button>
+</form>
+<p class="fd-status" id="fd-status" aria-live="polite"></p>
+<div class="fd-map" id="fd-map" role="region" aria-label="Map of fire departments"></div>
+<div class="fd-results" id="fd-results"></div>
+<h2>All Departments</h2>
+<div class="fd-table-wrap"><table class="fd-table"><thead><tr><th>Department</th><th>Town</th><th>Address</th><th>Phone</th><th>Website</th></tr></thead><tbody>{_fd_rows}</tbody></table></div>
+<p class="fd-note">Don’t see your town? Search “volunteer fire company” plus your town name, or call your town hall’s non-emergency line. Know of a department we missed or a detail that changed? <a href="mailto:{EMAIL}">Let us know</a>.</p>
 {video("eR98LQtCyiQ")}
-<h2>Fire Departments in Tinton Falls</h2>
-<p>Tinton Falls has four fire departments, so anyone who lives in Tinton Falls has a department nearby.</p>''', "Join / Find a FD to Join", JOIN_GROUP)
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+(function(){{
+var D={_fd_json};
+var map=L.map("fd-map",{{scrollWheelZoom:false}}).setView([40.285,-74.07],11);
+L.tileLayer("https://{{s}}.tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png",{{maxZoom:18,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}}).addTo(map);
+var pin=function(home){{return L.divIcon({{className:"fd-pin"+(home?" fd-home":""),html:home?'<img src="images/northside-patch.png" alt="">':"",iconSize:home?[34,40]:[18,18],iconAnchor:home?[17,20]:[9,9]}})}};
+function esc(s){{return String(s).replace(/[&<>"']/g,function(c){{return{{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}}[c]}})}}
+function dirs(d){{return "https://www.google.com/maps/dir/?api=1&destination="+encodeURIComponent(d.addr)}}
+function card(d,mi){{
+  var tel=d.phone?'<a class="btn btn-outline" href="tel:+1'+d.phone.replace(/-/g,"")+'">Call '+esc(d.phone)+'</a>':"";
+  var web=d.web?'<a class="btn btn-outline" href="'+esc(d.web)+'"'+(d.web.indexOf("http")===0?' target="_blank" rel="noopener"':"")+'>'+(d.name.indexOf("Northside")===0?"Join Northside":"Website")+'</a>':"";
+  return '<div class="fd-card'+(d.name.indexOf("Northside")===0?" fd-card-home":"")+'"><div class="fd-card-top"><h3>'+esc(d.name)+'</h3>'+(mi!=null?'<span class="fd-dist">'+mi.toFixed(1)+' mi</span>':"")+'</div><p>'+esc(d.addr)+'</p><div class="fd-actions">'+tel+web+'<a class="btn btn-outline" href="'+dirs(d)+'" target="_blank" rel="noopener">Directions</a></div></div>';
+}}
+D.forEach(function(d){{d.m=L.marker([d.lat,d.lng],{{icon:pin(d.name.indexOf("Northside")===0),title:d.name}}).addTo(map).bindPopup(card(d))}});
+map.fitBounds(L.latLngBounds(D.map(function(d){{return[d.lat,d.lng]}})),{{padding:[20,20]}});
+var you=null,st=document.getElementById("fd-status"),res=document.getElementById("fd-results");
+function miles(a,b,c,e){{var R=3958.8,r=Math.PI/180,x=(c-a)*r,y=(e-b)*r,h=Math.sin(x/2)*Math.sin(x/2)+Math.cos(a*r)*Math.cos(c*r)*Math.sin(y/2)*Math.sin(y/2);return 2*R*Math.asin(Math.sqrt(h))}}
+function show(lat,lng,label){{
+  if(you)map.removeLayer(you);
+  you=L.circleMarker([lat,lng],{{radius:9,color:"#24324A",weight:3,fillColor:"#fff",fillOpacity:1}}).addTo(map).bindTooltip("You",{{permanent:false}});
+  var list=D.map(function(d){{return{{d:d,mi:miles(lat,lng,d.lat,d.lng)}}}}).sort(function(a,b){{return a.mi-b.mi}}).slice(0,5);
+  st.textContent="Closest departments to "+label+" (straight-line distance):";
+  res.innerHTML=list.map(function(x){{return card(x.d,x.mi)}}).join("");
+  map.fitBounds(L.latLngBounds([[lat,lng]].concat(list.slice(0,3).map(function(x){{return[x.d.lat,x.d.lng]}}))),{{padding:[40,40],maxZoom:14}});
+  if(list[0].mi>15)st.textContent="That address is outside our area. These are the closest departments we list, but there is likely one closer to you.";
+}}
+document.getElementById("fd-form").addEventListener("submit",function(e){{
+  e.preventDefault();var q=document.getElementById("fd-q").value.trim();if(!q)return;
+  st.textContent="Searching…";res.innerHTML="";
+  var url="https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=us&q="+encodeURIComponent(/\\bnj\\b|new jersey/i.test(q)?q:q+", New Jersey");
+  fetch(url,{{headers:{{"Accept-Language":"en"}}}}).then(function(r){{return r.json()}}).then(function(j){{
+    if(!j.length){{st.textContent="We couldn’t find that address. Try adding the town or ZIP code.";return}}
+    show(+j[0].lat,+j[0].lon,j[0].display_name.split(",").slice(0,3).join(","));
+  }}).catch(function(){{st.textContent="Address search is unavailable right now. Use the map or the list below."}});
+}});
+document.getElementById("fd-loc").addEventListener("click",function(){{
+  if(!navigator.geolocation){{st.textContent="Your browser can’t share its location.";return}}
+  st.textContent="Finding your location…";
+  navigator.geolocation.getCurrentPosition(function(p){{show(p.coords.latitude,p.coords.longitude,"your location")}},function(){{st.textContent="Location wasn’t shared. Type your address instead."}},{{timeout:10000}});
+}});
+}})();
+</script>''', "Join / Find A Fire Department", JOIN_GROUP)
 
 page("donate.html", "Donate", f'''
 <span class="eyebrow">Annual Fund Drive</span>
