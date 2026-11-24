@@ -75,7 +75,7 @@ HEAD = '''<!doctype html>
 <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=6">
+<link rel="stylesheet" href="styles.css?v=7">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
 <meta property="og:image" content="https://www.northsideenginecompany.org/images/background-images/1218312023.jpg">
@@ -352,6 +352,7 @@ page("contact-us.html", "Contact Us", f'''
 # ---------------- LINKS (Linktree-style page for social bios) ----------------
 LINKS = [
     ("join-northside.html", "Join Northside", "Become a volunteer firefighter", True),
+    ("find-a-fd-to-join.html", "Find A Fire Department", "Find a volunteer company near you", False),
     ("donate.html", "Donate to Northside", "Support your volunteer firefighters", False),
     (VENMO, "Venmo", "@northsidefire", False),
     (IG, "Instagram", "@northsideengineco4", False),
@@ -368,13 +369,14 @@ _ICONS = {
     "text": '<path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9l-5 4V6a1 1 0 0 1 1-1z"/><path d="M8 10h8M8 13h5"/>',
     "contact": '<rect x="4" y="3" width="16" height="18" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M7.5 17.5c.8-2 2.5-3 4.5-3s3.7 1 4.5 3"/>',
     "drive": '<path d="M12 3c1 3 4.5 4.6 4.5 9.2A4.5 4.5 0 0 1 12 17a4.5 4.5 0 0 1-4.5-4.8c0-2 1.2-3.3 2-4.2.3 1.6 1 2.4 2 2.7C11 8.6 11.4 5.5 12 3z"/><path d="M5 21h14"/>',
+    "pin": '<path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.5"/>',
     "web": '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/>',
     "truck": '<path d="M2 16V8h11v8M13 11h4l4 4v1h-8"/><circle cx="6.5" cy="17.5" r="2"/><circle cx="17.5" cy="17.5" r="2"/>',
     "history": '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
     "email": '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',
     "phone": '<path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/>',
 }
-_icon_keys = ["join", "donate", "venmo", "instagram", "facebook", "web", "email"]
+_icon_keys = ["join", "pin", "donate", "venmo", "instagram", "facebook", "web", "email"]
 def _svg(k):
     return f'<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">{_ICONS[k]}</svg>'
 _link_items = "".join(
