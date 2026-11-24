@@ -307,7 +307,6 @@ page("join-northside.html", "Join Northside", f'''
 <h2>Ways To Serve</h2>
 <div class="role-list">
 <div><h3>Firefighter</h3><p>Respond to fires, crashes, alarms and rescues. You’ll train to Firefighter I, then keep building skills — driver/operator, officer and specialty training as you gain experience.</p></div>
-<div><h3>Support member</h3><p>Not every role means going into a fire. Volunteer fire companies also need help with fundraising, events, fire safety education, administration and the website. Ask us what’s open.</p></div>
 <div><h3>Junior member (under 18)</h3><p>Start learning early. Under New Jersey law, juniors under 16 attend meetings and non-hazardous training; at 16 and up they can join recruit firefighter training with parent permission and close supervision. Juniors never face the same hazards as adult members.</p></div>
 </div>
 
