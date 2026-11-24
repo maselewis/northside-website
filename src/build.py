@@ -75,7 +75,7 @@ HEAD = '''<!doctype html>
 <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=8">
+<link rel="stylesheet" href="styles.css?v=9">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
 <meta property="og:image" content="https://www.northsideenginecompany.org/images/background-images/1218312023.jpg">
@@ -292,7 +292,43 @@ page("join-northside.html", "Join Northside", f'''
 <h3>The rest is easy</h3>
 <ul><li>Complete the application</li><li>Pass the background checks</li><li>Receive a favorable recommendation from the investigating committee</li></ul>
 <p>You then become a probationary member for 6 months. After that, the active members vote to accept your membership based on your performance and the recommendations of the line officers.</p>
-<p><a class="btn btn-primary" href="mailto:{EMAIL}?subject=Joining%20Northside">Email us to get started</a></p>
+<h2 id="interest">Tell Us You’re Interested</h2>
+<p>Fill this out and a member will reach out to answer your questions and set up a time to visit Station 4. It only takes a minute.</p>
+<form class="join-form" id="join-form" action="https://formsubmit.co/{EMAIL}" method="POST">
+<input type="hidden" name="_subject" value="New interest from northsideenginecompany.org">
+<input type="hidden" name="_template" value="table">
+<input type="hidden" name="_next" value="https://www.northsideenginecompany.org/join-northside.html?sent=1#interest">
+<input type="text" name="_honey" class="sr" tabindex="-1" autocomplete="off" aria-hidden="true">
+<div class="jf-grid">
+<label>Full name<input name="name" required autocomplete="name"></label>
+<label>Phone<input name="phone" type="tel" required autocomplete="tel"></label>
+<label>Email<input name="email" type="email" required autocomplete="email"></label>
+<label>Town you live in<select name="town" required><option value="">Choose…</option><option>Tinton Falls</option><option>Shrewsbury Township</option><option>Shrewsbury</option><option>Red Bank</option><option>Lincroft</option><option>Eatontown</option><option>Other</option></select></label>
+<label>I’m interested in<select name="interest"><option>Firefighting</option><option>Junior program (under 18)</option><option>Fire police / support</option><option>Not sure yet</option></select></label>
+<label>Best time to reach you<input name="best_time" placeholder="e.g. weekday evenings"></label>
+</div>
+<label>Anything you want us to know? <span class="opt">(optional)</span><textarea name="message" rows="4" placeholder="Prior experience, questions, etc."></textarea></label>
+<label class="jf-check"><input type="checkbox" name="age_18_plus" value="Yes"> I’m 18 or older</label>
+<button class="btn btn-primary" type="submit">Send</button>
+<p class="jf-status" id="jf-status" role="status" aria-live="polite"></p>
+</form>
+<p class="jf-alt">Prefer email? Write to <a href="mailto:{EMAIL}?subject=Joining%20Northside">{EMAIL}</a> or call 732.741.3205.</p>
+<script>
+(function(){{
+var f=document.getElementById("join-form"),st=document.getElementById("jf-status");
+if(/[?&]sent=1/.test(location.search)){{st.textContent="Thanks! We got your info and will be in touch soon.";st.className="jf-status ok"}}
+f.addEventListener("submit",function(e){{
+  if(!window.fetch)return;e.preventDefault();
+  var b=f.querySelector("button");b.disabled=true;st.className="jf-status";st.textContent="Sending…";
+  var data={{}};new FormData(f).forEach(function(v,k){{data[k]=v}});
+  fetch("https://formsubmit.co/ajax/{EMAIL}",{{method:"POST",headers:{{"Content-Type":"application/json","Accept":"application/json"}},body:JSON.stringify(data)}})
+  .then(function(r){{return r.json().then(function(j){{if(!r.ok||String(j.success)!=="true")throw 0}})}})
+  .then(function(){{f.reset();st.className="jf-status ok";st.textContent="Thanks! We got your info and will be in touch soon."}})
+  .catch(function(){{st.className="jf-status err";st.textContent="Something went wrong. Please email {EMAIL} or call 732.741.3205."}})
+  .finally(function(){{b.disabled=false}});
+}});
+}})();
+</script>
 <p><a class="download" href="images/joint_district_application_-_update_20210304.pdf">📄 Download the membership application (PDF, 126 KB)</a></p>
 <h2>Junior Program</h2>
 {fig("editor/fire-dog.jpeg")}
@@ -444,7 +480,7 @@ page("contact-us.html", "Contact Us", f'''
 
 # ---------------- LINKS (Linktree-style page for social bios) ----------------
 LINKS = [
-    ("join-northside.html", "Join Northside", "Become a volunteer firefighter", True),
+    ("join-northside.html#interest", "Join Northside", "Become a volunteer firefighter", True),
     ("find-a-fd-to-join.html", "Find A Fire Department", "Find a volunteer company near you", False),
     ("donate.html", "Donate to Northside", "Support your volunteer firefighters", False),
     (VENMO, "Venmo", "@northsidefire", False),
