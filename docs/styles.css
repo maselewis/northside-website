@@ -129,3 +129,31 @@ p{margin:0 0 1em}
 .site-footer ul{list-style:none;margin:0;padding:0;line-height:2}
 .site-footer .alert{display:inline-block;margin:36px 0 18px;font-size:17px}
 .site-footer .legal{color:var(--soft);font-size:14px;margin:0}
+
+/* links page (Linktree-style) */
+.lt-body{background:var(--navy)}
+.lt{min-height:100vh;padding:0 0 48px}
+.lt-cover{height:220px;overflow:hidden;background:var(--photo)}
+.lt-cover img{width:100%;height:100%;object-fit:cover;opacity:.85}
+.lt-card{max-width:560px;margin:-72px auto 0;padding:0 16px;text-align:center;position:relative}
+.lt-avatar{width:112px;height:112px;margin:0 auto 16px;border-radius:30px;background:var(--brick);color:#fff;display:grid;place-items:center;font:700 64px/1 var(--font);border:5px solid var(--navy);box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.lt h1{color:#fff;font-size:clamp(28px,6vw,36px);margin-bottom:6px}
+.lt-sub{color:#C9D1DE;font-size:17px;margin-bottom:14px}
+.lt-social{display:flex;justify-content:center;gap:10px;margin-bottom:26px}
+.lt-social a{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;color:#fff;background:rgba(255,255,255,.1);transition:background .15s}
+.lt-social a:hover{background:var(--brick)}
+.lt-social svg{width:22px;height:22px}
+.lt-links{display:flex;flex-direction:column;gap:12px}
+.lt-link{display:flex;align-items:center;gap:14px;text-align:left;text-decoration:none;background:var(--bg);color:var(--ink);padding:14px 18px;border-radius:16px;transition:transform .15s,box-shadow .15s}
+.lt-link:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.25)}
+.lt-ico{width:42px;height:42px;flex:none;border-radius:12px;background:var(--tint);color:var(--brick);display:grid;place-items:center}
+.lt-ico svg{width:22px;height:22px}
+.lt-txt{flex:1;min-width:0}
+.lt-txt b{display:block;font-size:17px;color:var(--navy);line-height:1.25}
+.lt-txt small{display:block;font-size:14px;color:var(--soft);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lt-arrow{color:var(--soft);font-weight:700}
+.lt-primary{background:var(--brick)}
+.lt-primary .lt-txt b,.lt-primary .lt-txt small,.lt-primary .lt-arrow{color:#fff}
+.lt-primary .lt-ico{background:rgba(255,255,255,.18);color:#fff}
+.lt-alert{margin-top:26px;color:#fff;font-weight:700;font-size:15px;background:rgba(166,58,46,.35);border:1px solid rgba(255,255,255,.15);padding:12px;border-radius:12px}
+.lt-foot{color:#9AA6B8;font-size:14px;margin-top:14px}

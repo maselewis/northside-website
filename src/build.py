@@ -348,6 +348,50 @@ page("contact-us.html", "Contact Us", f'''
 </dl></div>
 <div class="video" style="aspect-ratio:16/10"><iframe src="https://www.google.com/maps?q=35+Springdale+Ave,+Tinton+Falls,+NJ+07724&output=embed" title="Map" loading="lazy"></iframe></div>''', "Contact Us")
 
+# ---------------- LINKS (Linktree-style page for social bios) ----------------
+LINKS = [
+    ("donate.html", "Donate to Northside", "Support your volunteer firefighters", True),
+    ("join-northside.html", "Join Northside", "Become a volunteer firefighter", False),
+    (IG, "Instagram", "@northsideengineco4", False),
+    (FB, "Facebook", "Northside Engine Company", False),
+    ("./", "Our Website", "northsideenginecompany.org", False),
+    ("northside-fire-apparatus.html", "Our Apparatus", "Ladder, engine, brush and rescue", False),
+    ("history.html", "Our History", "Serving Tinton Falls since 1955", False),
+    (f"mailto:{EMAIL}", "Email Us", EMAIL, False),
+    ("tel:+17327413205", "Call The Station", "732.741.3205 (non-emergency)", False),
+]
+_ICONS = {
+    "donate": '<path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 5 6.4 5c2 0 3.6 1.1 4.6 2.6C12 6.1 13.6 5 15.6 5 19 5 21.1 8.4 19.6 11.8 17.5 16.4 12 21 12 21z"/>',
+    "join": '<circle cx="9" cy="8" r="4"/><path d="M2 21c0-3.9 3.1-7 7-7s7 3.1 7 7"/><path d="M19 8v6M16 11h6"/>',
+    "instagram": '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>',
+    "facebook": '<path d="M14 8h3V4h-3c-2.8 0-4 1.7-4 4.3V11H7v4h3v6h4v-6h3l1-4h-4V8.6c0-.4.3-.6.6-.6z"/>',
+    "web": '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/>',
+    "truck": '<path d="M2 16V8h11v8M13 11h4l4 4v1h-8"/><circle cx="6.5" cy="17.5" r="2"/><circle cx="17.5" cy="17.5" r="2"/>',
+    "history": '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    "email": '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',
+    "phone": '<path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/>',
+}
+_icon_keys = ["donate", "join", "instagram", "facebook", "web", "truck", "history", "email", "phone"]
+def _svg(k):
+    return f'<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">{_ICONS[k]}</svg>'
+_link_items = "".join(
+    f'<a class="lt-link{" lt-primary" if pri else ""}" href="{h}"{" target=_blank rel=noopener" if h.startswith("http") else ""}>'
+    f'<span class="lt-ico">{_svg(k)}</span><span class="lt-txt"><b>{html.escape(t)}</b><small>{html.escape(d)}</small></span><span class="lt-arrow" aria-hidden="true">→</span></a>'
+    for (h, t, d, pri), k in zip(LINKS, _icon_keys))
+(OUT / "links.html").write_text(HEAD.format(title="Links | Northside Engine Company No. 4", desc=DESC).replace("<body>", '<body class="lt-body">') + f'''
+<main id="main" class="lt">
+<div class="lt-cover">{img("background-images/1218312023.jpg", "Northside fire apparatus outside Station 4")}</div>
+<div class="lt-card">
+<div class="lt-avatar">4</div>
+<h1>Northside Engine Co. No. 4</h1>
+<p class="lt-sub">Volunteer firefighters serving Tinton Falls, NJ since 1955</p>
+<div class="lt-social"><a href="{IG}" target="_blank" rel="noopener" aria-label="Instagram">{_svg("instagram")}</a><a href="{FB}" target="_blank" rel="noopener" aria-label="Facebook">{_svg("facebook")}</a><a href="mailto:{EMAIL}" aria-label="Email">{_svg("email")}</a></div>
+<nav class="lt-links" aria-label="Northside links">{_link_items}</nav>
+<div class="lt-alert">For emergencies, always call 9-1-1</div>
+<p class="lt-foot">35 Springdale Ave · Tinton Falls, NJ 07724</p>
+</div>
+</main></body></html>''')
+
 # 404 + favicon + CNAME + assets
 (OUT / "404.html").write_text(HEAD.format(title="Page not found | Northside Engine Company No. 4", desc=DESC) + nav("") +
     '<main id="main"><section class="page-head"><div class="wrap"><h1>Page not found</h1></div></section><div class="wrap" style="padding:72px 24px"><p class="lede">Sorry, that page doesn’t exist.</p><a class="btn btn-primary" href="/">Back to home</a></div></main>' + FOOTER + "</body></html>")
