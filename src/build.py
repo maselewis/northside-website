@@ -75,7 +75,7 @@ HEAD = '''<!doctype html>
 <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=9">
+<link rel="stylesheet" href="styles.css?v=10">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
 <meta property="og:image" content="https://www.northsideenginecompany.org/images/background-images/1218312023.jpg">
@@ -403,7 +403,38 @@ page("find-a-fd-to-join.html", "Find A Fire Department", f'''
 <div class="fd-results" id="fd-results"></div>
 <h2>All Departments</h2>
 <div class="fd-table-wrap"><table class="fd-table"><thead><tr><th>Department</th><th>Town</th><th>Address</th><th>Phone</th><th>Website</th></tr></thead><tbody>{_fd_rows}</tbody></table></div>
-<p class="fd-note">Don’t see your town? Search “volunteer fire company” plus your town name, or call your town hall’s non-emergency line. Know of a department we missed or a detail that changed? <a href="mailto:{EMAIL}">Let us know</a>.</p>
+<p class="fd-note">Don’t see your town? Search “volunteer fire company” plus your town name, or call your town hall’s non-emergency line.</p>
+<details class="fd-suggest" id="suggest"><summary>Know of a department we missed or a detail that changed? Let us know</summary>
+<form class="join-form" id="fd-suggest-form" action="https://formsubmit.co/{EMAIL}" method="POST">
+<input type="hidden" name="_subject" value="Fire department map correction">
+<input type="hidden" name="_template" value="table">
+<input type="hidden" name="_next" value="https://www.northsideenginecompany.org/find-a-fd-to-join.html?sent=1#suggest">
+<input type="text" name="_honey" class="sr" tabindex="-1" autocomplete="off" aria-hidden="true">
+<div class="jf-grid">
+<label>Fire department<input name="department" required placeholder="e.g. Wall Township Fire Co."></label>
+<label>Town<input name="town" required></label>
+</div>
+<label>What should we add or change?<textarea name="details" rows="3" required placeholder="Address, phone, website, or what’s wrong"></textarea></label>
+<label>Your email <span class="opt">(optional, if you’d like a reply)</span><input name="email" type="email" autocomplete="email"></label>
+<button class="btn btn-primary" type="submit">Send</button>
+<p class="jf-status" id="fs-status" role="status" aria-live="polite"></p>
+</form></details>
+<script>
+(function(){{
+var f=document.getElementById("fd-suggest-form"),st=document.getElementById("fs-status"),d=document.getElementById("suggest");
+if(/[?&]sent=1/.test(location.search)){{d.open=true;st.className="jf-status ok";st.textContent="Thanks! We’ll take a look and update the map."}}
+f.addEventListener("submit",function(e){{
+  if(!window.fetch)return;e.preventDefault();
+  var b=f.querySelector("button");b.disabled=true;st.className="jf-status";st.textContent="Sending…";
+  var data={{}};new FormData(f).forEach(function(v,k){{data[k]=v}});
+  fetch("https://formsubmit.co/ajax/{EMAIL}",{{method:"POST",headers:{{"Content-Type":"application/json","Accept":"application/json"}},body:JSON.stringify(data)}})
+  .then(function(r){{return r.json().then(function(j){{if(!r.ok||String(j.success)!=="true")throw 0}})}})
+  .then(function(){{f.reset();st.className="jf-status ok";st.textContent="Thanks! We’ll take a look and update the map."}})
+  .catch(function(){{st.className="jf-status err";st.textContent="Something went wrong. Please email {EMAIL} instead."}})
+  .finally(function(){{b.disabled=false}});
+}});
+}})();
+</script>
 {video("eR98LQtCyiQ")}
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
