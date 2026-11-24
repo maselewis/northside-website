@@ -301,7 +301,7 @@ page("join-northside.html", "Join Northside", f'''
 <div><h3>A second family</h3><p>Drills, meals, parades, Memorial Day, wetdowns. The friendships are a big reason members stay for decades.</p></div>
 <div><h3>Retirement money (LOSAP)</h3><p>Tax-deferred contributions toward retirement for active volunteers.</p></div>
 <div><h3>Life insurance</h3><p>A district-supplied life insurance policy once you qualify.</p></div>
-<div><h3>Tuition and fee waivers</h3><p>Up to $600 a year in Tinton Falls tuition waivers for you and your family, plus up to $300 in borough fee waivers.</p></div>
+<div><h3>Tuition and fee waivers</h3><p>Up to $600 a year in tuition waivers for you and your family, plus up to $300 in borough fee waivers.</p></div>
 </div>
 <p><a href="#benefits">Full benefit details ↓</a></p>
 
