@@ -212,3 +212,4 @@ p{margin:0 0 1em}
 .fd-suggest{margin:14px 0 24px}
 .fd-suggest summary{cursor:pointer;font-weight:700;color:var(--brick);font-size:17px}
 .fd-suggest[open] summary{margin-bottom:4px}
+.fd-table td:nth-child(4){white-space:nowrap}
