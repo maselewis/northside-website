@@ -75,7 +75,7 @@ HEAD = '''<!doctype html>
 <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=5">
+<link rel="stylesheet" href="styles.css?v=6">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
 <meta property="og:image" content="https://www.northsideenginecompany.org/images/background-images/1218312023.jpg">
@@ -366,6 +366,8 @@ _ICONS = {
     "facebook": '<path d="M14 8h3V4h-3c-2.8 0-4 1.7-4 4.3V11H7v4h3v6h4v-6h3l1-4h-4V8.6c0-.4.3-.6.6-.6z"/>',
     "venmo": '<path d="M17.5 3.5c.7 1.2 1 2.4 1 3.9 0 4.9-4.2 11.2-7.6 15.6H5.3L3 5.2l5-.5 1.3 10.2c1.2-2 2.7-5.1 2.7-7.2 0-1.2-.2-2-.5-2.6z"/>',
     "text": '<path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9l-5 4V6a1 1 0 0 1 1-1z"/><path d="M8 10h8M8 13h5"/>',
+    "contact": '<rect x="4" y="3" width="16" height="18" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M7.5 17.5c.8-2 2.5-3 4.5-3s3.7 1 4.5 3"/>',
+    "drive": '<path d="M12 3c1 3 4.5 4.6 4.5 9.2A4.5 4.5 0 0 1 12 17a4.5 4.5 0 0 1-4.5-4.8c0-2 1.2-3.3 2-4.2.3 1.6 1 2.4 2 2.7C11 8.6 11.4 5.5 12 3z"/><path d="M5 21h14"/>',
     "web": '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/>',
     "truck": '<path d="M2 16V8h11v8M13 11h4l4 4v1h-8"/><circle cx="6.5" cy="17.5" r="2"/><circle cx="17.5" cy="17.5" r="2"/>',
     "history": '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
@@ -381,8 +383,9 @@ _link_items = "".join(
     for (h, t, d, pri), k in zip(LINKS, _icon_keys))
 _link_items += (f'<div class="lt-link lt-split"><span class="lt-ico">{_svg("phone")}</span>'
     '<span class="lt-txt"><b>Call Or Text</b><small>732.741.3205</small></span>'
-    '<span class="lt-btns"><a href="tel:+17327413205">Call</a><a href="sms:+17327413205">Text</a></span></div>')
-(OUT / "links.html").write_text(HEAD.format(title="Links | Northside Engine Company No. 4", desc=DESC).replace("<body>", '<body class="lt-body">') + f'''
+    '<span class="lt-btns"><a href="tel:+17327413205">Call</a><a href="sms:+17327413205">Text</a></span></div>'
+    f'<a class="lt-link" href="northside.vcf" download="Northside Engine Co 4.vcf"><span class="lt-ico">{_svg("contact")}</span><span class="lt-txt"><b>Save Our Contact</b><small>Add Northside to your phone</small></span><span class="lt-arrow" aria-hidden="true">↓</span></a>')
+(OUT / "links.html").write_text(HEAD.format(title="Northside Engine Co. No. 4 | Join, Donate & Connect", desc=DESC).replace("images/background-images/1218312023.jpg", "images/og-links.jpg").replace("<body>", '<body class="lt-body">') + f'''
 <main id="main" class="lt">
 <div class="lt-cover">{img("background-images/1218312023.jpg", "Northside fire apparatus outside Station 4")}</div>
 <div class="lt-card">
@@ -390,11 +393,19 @@ _link_items += (f'<div class="lt-link lt-split"><span class="lt-ico">{_svg("phon
 <h1>Northside Engine Co. No. 4</h1>
 <p class="lt-sub">Volunteer firefighters serving Tinton Falls, NJ since 1955</p>
 <div class="lt-social"><a href="{IG}" target="_blank" rel="noopener" aria-label="Instagram">{_svg("instagram")}</a><a href="{FB}" target="_blank" rel="noopener" aria-label="Facebook">{_svg("facebook")}</a><a href="{VENMO}" target="_blank" rel="noopener" aria-label="Venmo">{_svg("venmo")}</a><a href="mailto:{EMAIL}" aria-label="Email">{_svg("email")}</a><a href="tel:+17327413205" aria-label="Call">{_svg("phone")}</a><a href="sms:+17327413205" aria-label="Text">{_svg("text")}</a></div>
-<nav class="lt-links" aria-label="Northside links">{_link_items}</nav>
+<nav class="lt-links" aria-label="Northside links"><a class="lt-link lt-primary lt-drive" id="fund-drive" href="donate.html" hidden><span class="lt-ico">{_svg("drive")}</span><span class="lt-txt"><b>Annual Fund Drive</b><small>Your gift keeps Station 4 running</small></span><span class="lt-arrow" aria-hidden="true">→</span></a>{_link_items}</nav>
 <div class="lt-alert">For emergencies, always call 9-1-1</div>
 <p class="lt-foot">35 Springdale Ave · Tinton Falls, NJ 07724</p>
 </div>
-</main></body></html>''')
+</main>
+<script>
+// Fund drive: show the Fund Drive link Dec 26 - Feb 28 (Eastern time); add ?drive=1 to preview it any time
+(function(){{
+var d=new Date(new Date().toLocaleString("en-US",{{timeZone:"America/New_York"}})),m=d.getMonth()+1,day=d.getDate();
+var on=(m===12&&day>=26)||m===1||m===2||/[?&]drive=1/.test(location.search);
+if(on)document.getElementById("fund-drive").hidden=false;
+}})();
+</script></body></html>''')
 
 # 404 + favicon + CNAME + assets
 (OUT / "404.html").write_text(HEAD.format(title="Page not found | Northside Engine Company No. 4", desc=DESC) + nav("") +
