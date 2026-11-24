@@ -195,3 +195,17 @@ p{margin:0 0 1em}
 .fd-table tr:last-child td{border-bottom:0}
 .fd-note{font-size:16px;color:var(--soft);margin-top:14px}
 .page-body>.article{min-width:0}
+
+/* join interest form */
+.join-form{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:24px;margin:18px 0 10px;display:grid;gap:16px}
+.jf-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:600px){.jf-grid{grid-template-columns:1fr}.join-form{padding:18px}}
+.join-form label{display:grid;gap:6px;font-weight:500;font-size:15px;color:var(--navy)}
+.join-form input,.join-form select,.join-form textarea{font:400 17px/1.3 var(--font);padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);width:100%}
+.join-form input:focus,.join-form select:focus,.join-form textarea:focus{outline:2px solid var(--brick);border-color:var(--brick)}
+.join-form .jf-check{display:flex;align-items:center;gap:10px;font-weight:400}
+.join-form .jf-check input{width:20px;height:20px;accent-color:var(--brick)}
+.join-form .opt{font-weight:400;color:var(--soft)}
+.join-form button{justify-self:start}
+.jf-status{margin:0;font-weight:500}.jf-status.ok{color:#2E7D4F}.jf-status.err{color:var(--brick)}
+.jf-alt{font-size:16px;color:var(--soft)}
