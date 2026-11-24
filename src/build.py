@@ -75,7 +75,7 @@ HEAD = '''<!doctype html>
 <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=3">
+<link rel="stylesheet" href="styles.css?v=4">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
 <meta property="og:image" content="https://www.northsideenginecompany.org/images/background-images/1218312023.jpg">
@@ -383,7 +383,7 @@ _link_items = "".join(
 <main id="main" class="lt">
 <div class="lt-cover">{img("background-images/1218312023.jpg", "Northside fire apparatus outside Station 4")}</div>
 <div class="lt-card">
-<div class="lt-avatar">4</div>
+<div class="lt-avatar">{img("northside-patch.png", "Northside Engine Co. patch")}</div>
 <h1>Northside Engine Co. No. 4</h1>
 <p class="lt-sub">Volunteer firefighters serving Tinton Falls, NJ since 1955</p>
 <div class="lt-social"><a href="{IG}" target="_blank" rel="noopener" aria-label="Instagram">{_svg("instagram")}</a><a href="{FB}" target="_blank" rel="noopener" aria-label="Facebook">{_svg("facebook")}</a><a href="mailto:{EMAIL}" aria-label="Email">{_svg("email")}</a></div>
