@@ -75,7 +75,7 @@ HEAD = '''<!doctype html>
 <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=11">
+<link rel="stylesheet" href="styles.css?v=12">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
 <meta property="og:image" content="https://www.northsideenginecompany.org/images/background-images/1218312023.jpg">
@@ -284,14 +284,61 @@ page("dashboard.html", "Member Dashboard", f'''
 ("published/985095324.jpg","https://www.waysidefirecompany.com/","Wayside Fire Company"),("published/847025001.jpg","https://www.tintonfallsfiredistrict1.com/","TF Fire District 1")])}''', "Resources / Dashboard", RES_GROUP)
 
 page("join-northside.html", "Join Northside", f'''
-{fig("editor/memberstar.jpg")}
-<h2>Interested in joining NSEC?</h2>
-<p class="lede">Interested in helping your community? Working as part of the fire company is a great way to help — and pick up a couple of extras while you’re at it. <strong>No experience is needed, and all training is included!</strong></p>
-<h3>You need to be</h3>
-<ol><li>At least 18 years old</li><li>Hold a valid NJ driver’s license</li><li>A resident of the Borough of Tinton Falls, Shrewsbury Township, Red Bank, Lincroft, Shrewsbury or Eatontown for at least 6 months</li></ol>
-<h3>The rest is easy</h3>
-<ul><li>Complete the application</li><li>Pass the background checks</li><li>Receive a favorable recommendation from the investigating committee</li></ul>
-<p>You then become a probationary member for 6 months. After that, the active members vote to accept your membership based on your performance and the recommendations of the line officers.</p>
+<div class="recruit-banner"><b>Northside is looking for volunteers.</b> No experience needed. Training is free. <a href="#interest">Tell us you’re interested →</a></div>
+<p class="lede">Northside Engine Company No. 4 has protected Tinton Falls since 1955, and every member is a volunteer. We answer 300+ calls a year, and we need neighbors who want to learn real skills, make a difference close to home, and be part of a crew that has each other’s backs.</p>
+<div class="stat-band">
+<div><b>62%</b><span>of U.S. firefighters are volunteers</span></div>
+<div><b>3×</b><span>more calls than 40 years ago</span></div>
+<div><b>635,100</b><span>volunteer firefighters in 2023, a record low</span></div>
+</div>
+<p class="src-note">Source: <a href="https://www.nvfc.org/wp-content/uploads/2026/02/2026-Fire-Service-Infographic.pdf">National Volunteer Fire Council, 2026 Fire Service Fact Sheet</a></p>
+
+<h2>What You Get</h2>
+<div class="benefit-grid">
+<div><h3>Real-world skills</h3><p>Fire suppression, rescue, ladders, ropes, hazmat awareness, CPR and incident command — skills that help keep you and your family safe.</p></div>
+<div><h3>Free state certification</h3><p>New Jersey Firefighter I training at the county fire academy at no cost to you.</p></div>
+<div><h3>A second family</h3><p>Drills, meals, parades, Memorial Day, wetdowns. The friendships are a big reason members stay for decades.</p></div>
+<div><h3>Retirement money (LOSAP)</h3><p>Tax-deferred contributions toward retirement for active volunteers.</p></div>
+<div><h3>Life insurance</h3><p>A district-supplied life insurance policy once you qualify.</p></div>
+<div><h3>Tuition and fee waivers</h3><p>Up to $600 a year in Tinton Falls tuition waivers for you and your family, plus up to $300 in borough fee waivers.</p></div>
+</div>
+<p><a href="#benefits">Full benefit details ↓</a></p>
+
+<h2>Ways To Serve</h2>
+<div class="role-list">
+<div><h3>Firefighter</h3><p>Respond to fires, crashes, alarms and rescues. You’ll train to Firefighter I, then keep building skills — driver/operator, officer and specialty training as you gain experience.</p></div>
+<div><h3>Support member</h3><p>Not every role means going into a fire. Volunteer fire companies also need help with fundraising, events, fire safety education, administration and the website. Ask us what’s open.</p></div>
+<div><h3>Junior member (under 18)</h3><p>Start learning early. Under New Jersey law, juniors under 16 attend meetings and non-hazardous training; at 16 and up they can join recruit firefighter training with parent permission and close supervision. Juniors never face the same hazards as adult members.</p></div>
+</div>
+
+<h2>Who Can Join</h2>
+<ol><li>At least 18 years old (or ask about the junior program)</li><li>Hold a valid NJ driver’s license</li><li>A resident of the Borough of Tinton Falls, Shrewsbury Township, Red Bank, Lincroft, Shrewsbury or Eatontown for at least 6 months</li></ol>
+<p>Firefighting isn’t just for one kind of person. Members come from all walks of life, and we welcome women, people of every background, and people who have never set foot in a firehouse.</p>
+
+<h2>How It Works</h2>
+<ol class="steps">
+<li><b>Tell us you’re interested.</b> Use the form below, call or email. A member will reach out.</li>
+<li><b>Visit Station 4.</b> Meet the members, see the trucks, ask anything.</li>
+<li><b>Apply.</b> Fill out the membership application and pass the background checks.</li>
+<li><b>Investigating committee.</b> A few members get to know you and make a recommendation.</li>
+<li><b>Probation (6 months).</b> Start drilling and responding alongside experienced members.</li>
+<li><b>Firefighter I.</b> Complete New Jersey Firefighter I at the Monmouth County Fire Academy — more than 100 hours of state-certified training at no cost.</li>
+<li><b>Full member.</b> After probation, the active members vote on your membership based on your performance and the line officers’ recommendations.</li>
+</ol>
+
+<h2>Common Questions</h2>
+<div class="faq">
+<details><summary>Do I need any experience?</summary><p>No. We train you from day one. Many of our members had never fought a fire before joining.</p></details>
+<details><summary>How much time does it take?</summary><p>Plan on regular drills and meetings, plus calls when you’re available. Firefighter I is the biggest commitment up front: more than 100 hours of classes and drills, usually spread over evenings and weekends. Ask us about our current drill schedule and minimums.</p></details>
+<details><summary>Do I have to answer every call?</summary><p>No. Nobody makes every call. Members respond when they can, and many with day jobs cover nights and weekends.</p></details>
+<details><summary>Can I join if I work full-time or have kids?</summary><p>Yes. Many of our members do. Volunteering is built around real lives, and families are part of the firehouse too.</p></details>
+<details><summary>What does it cost?</summary><p>Nothing. Training at the county fire academy is free, and the district provides your protective gear.</p></details>
+<details><summary>What does Firefighter I training involve?</summary><p>It’s New Jersey’s state certification course, covering ladders, hose, safety, search and rescue, hazardous materials awareness, incident command and more. You’ll need a physician’s medical evaluation before the academy, and you must be 18 to take part in live-fire training.</p></details>
+<details><summary>What if I’m worried about the physical or emotional side?</summary><p>That’s a fair question and a common one. You’ll train at your own pace with experienced members, and you won’t be asked to do anything you haven’t been trained for. Firefighters look out for each other, on scene and after. Ask us about the support available.</p></details>
+<details><summary>I don’t live in your area. Where can I volunteer?</summary><p>Use our <a href="find-a-fd-to-join.html">fire department finder</a>, or search <a href="https://www.makemeafirefighter.org/">MakeMeAFirefighter.org</a>, the National Volunteer Fire Council’s national listing of volunteer opportunities.</p></details>
+</div>
+
+<p><a class="download" href="images/joint_district_application_-_update_20210304.pdf">📄 Download the membership application (PDF, 126 KB)</a></p>
 <h2 id="interest">Tell Us You’re Interested</h2>
 <p>Fill this out and a member will reach out to answer your questions and set up a time to visit Station 4. It only takes a minute.</p>
 <form class="join-form" id="join-form" action="https://formsubmit.co/{EMAIL}" method="POST">
@@ -330,10 +377,7 @@ f.addEventListener("submit",function(e){{
 }})();
 </script>
 <p><a class="download" href="images/joint_district_application_-_update_20210304.pdf">📄 Download the membership application (PDF, 126 KB)</a></p>
-<h2>Junior Program</h2>
-{fig("editor/fire-dog.jpeg")}
-<p>We also have a junior program for individuals under 18. <a href="contact-us.html">Contact us</a> for more info!</p>
-<h2>Benefits</h2>
+<h2 id="benefits">Benefit Details</h2>
 <h3>Length of Service Award Program (LOSAP)</h3><p>A statewide program established in 1998 that lets communities provide retirement savings contributions to volunteer emergency responders. <a href="http://www.state.nj.us/dca/lgs/losap/program_info/about_losap.pdf">Learn more from the State</a>.</p>
 <h3>Life Insurance</h3><p>District-supplied life insurance policy once qualified.</p>
 <h3>Training</h3><p>Members are trained in fireground operations, safety, ladders, ropes, wildland fire suppression, electrical and chemical hazards, and incident command. Training starts with Firefighter I & II at the Monmouth County, Middletown, or Middlesex County Fire Academy, and continues throughout your career as you progress in experience and command responsibilities.</p>
@@ -341,6 +385,13 @@ f.addEventListener("submit",function(e){{
 <h3>Tuition Assistance</h3><p>The Borough of Tinton Falls provides tuition waivers for volunteer emergency responders up to $600 per year, covering the volunteer, their spouse and dependent children. It starts after your first year of service, with additional credit for each emergency service organization you belong to.</p>
 <h3>Municipal Fee Waiver</h3><p>(2-18A.4) Exemption from Tinton Falls Borough fees for recreation activities, training programs, licenses and permits, and use of Borough buildings and facilities, up to $300 per year, for the personal and nonprofit use of members in good standing.</p>
 <h3>Jury Duty</h3><p>Active volunteer firefighters may request to be excused from jury duty with verification of active membership. See the <a href="http://www.judiciary.state.nj.us/juryreporting/juryfqa.pdf">state website</a>.</p>
+<h2>Learn More</h2>
+<ul class="src-list">
+<li><a href="https://www.nvfc.org/RR-Research">NVFC volunteer firefighter recruitment and retention research</a></li>
+<li><a href="https://www.makemeafirefighter.org/">Make Me A Firefighter</a> — national volunteer opportunity search</li>
+<li><a href="https://mcsonj.org/firefighter-1-2/">Monmouth County Fire Academy — Firefighter 1 &amp; 2 program</a></li>
+<li><a href="https://www.nvfc.org/?p=22467">NVFC: volunteer roles beyond firefighting</a></li>
+</ul>
 {fig("firelogo_orig.gif")}''', "Join / Join Northside", JOIN_GROUP)
 
 # Fire departments for the finder map. lat/lng from OpenStreetMap; phone "" = none published.
@@ -390,6 +441,8 @@ _fd_rows = "".join(
 page("find-a-fd-to-join.html", "Find A Fire Department", f'''
 <p class="lede">Most fire departments across the country depend on dedicated volunteers from their local communities, and we are no different. If you’re interested in getting involved, we’d love to meet you.</p>
 <p>One important factor when joining is how close the department is to your home or job. No one expects you to make every call, but you need to be able to respond in a reasonable time. Most people choose a department near home; some with flexible jobs respond during the day.</p>
+<div class="recruit-banner"><b>Almost every company on this map relies on volunteers.</b> In a national survey, nearly two-thirds of people weren’t sure their local fire department was looking for help. <a href="https://www.nvfc.org/RR-Research">They are.</a></div>
+<p>No experience is needed, training is free, and there are roles for people who never go inside a burning building: fire police, fundraising, fire safety education and support. <a href="join-northside.html">See what joining Northside looks like →</a></p>
 <h2>Find The Closest Department</h2>
 <p>Enter your home or work address to see the volunteer fire companies nearest you. Each department is set up and run a little differently, so reaching out to the one you’re interested in is the best way to learn more.</p>
 <form class="fd-search" id="fd-form" role="search">
@@ -403,7 +456,7 @@ page("find-a-fd-to-join.html", "Find A Fire Department", f'''
 <div class="fd-results" id="fd-results"></div>
 <h2>All Departments</h2>
 <div class="fd-table-wrap"><table class="fd-table"><thead><tr><th>Department</th><th>Town</th><th>Address</th><th>Phone</th><th>Website</th></tr></thead><tbody>{_fd_rows}</tbody></table></div>
-<p class="fd-note">Don’t see your town? Search “volunteer fire company” plus your town name, or call your town hall’s non-emergency line.</p>
+<p class="fd-note">Don’t see your town? Search <a href="https://www.makemeafirefighter.org/">MakeMeAFirefighter.org</a>, the National Volunteer Fire Council’s national listing of volunteer opportunities, or call your town hall’s non-emergency line.</p>
 <details class="fd-suggest" id="suggest"><summary>Know of a department we missed or a detail that changed? Let us know</summary>
 <form class="join-form" id="fd-suggest-form" action="https://formsubmit.co/{EMAIL}" method="POST">
 <input type="hidden" name="_subject" value="Fire department map correction">
