@@ -330,6 +330,20 @@ FIRE_DEPTS = [
     ("Colts Neck Fire Company No. 1", "Colts Neck", "123 County Rd 537, Colts Neck, NJ 07722", "", "https://www.cnfd.org/", 40.28580, -74.18270),
     ("Colts Neck Fire Company No. 2", "Colts Neck", "50 Conover Rd, Colts Neck, NJ 07722", "", "https://www.cnfd.org/", 40.31540, -74.19040),
     ("Lincroft Fire Company", "Middletown", "601 Newman Springs Rd, Lincroft, NJ 07738", "", "https://www.lfc10.org/", 40.33130, -74.11755),
+    ("Middletown Fire Company No. 1", "Middletown", "336 Route 35, Middletown, NJ 07701", "732-890-0378", "https://www.middletownnj.org/mtfd", 40.36900, -74.08501),
+    ("River Plaza Hose Company", "Middletown", "26 Applegate St, Middletown, NJ 07701", "732-890-0378", "https://www.middletownnj.org/mtfd", 40.35005, -74.08591),
+    ("Old Village Fire Company", "Middletown", "1340 Route 35, Middletown, NJ 07748", "732-890-0378", "https://www.middletownnj.org/mtfd", 40.40038, -74.12208),
+    ("Navesink Hook & Ladder Company", "Middletown", "141 Jackson St, Atlantic Highlands, NJ 07716", "732-890-0378", "https://www.navesinkfire.org/", 40.40027, -74.02879),
+    ("Belford Engine Company", "Middletown", "739 Main St, Belford, NJ 07718", "732-890-0378", "https://www.middletownnj.org/mtfd", 40.42215, -74.08971),
+    ("Independent Fire Company", "Middletown", "536 Route 36, Belford, NJ 07718", "732-890-0378", "https://www.middletownnj.org/mtfd", 40.42137, -74.09457),
+    ("Community Fire Company", "Middletown", "85 Appleton Ave, Leonardo, NJ 07737", "732-890-0378", "https://www.middletownnj.org/mtfd", 40.41499, -74.06573),
+    ("Brevent Park & Leonardo Fire Company", "Middletown", "38 Center Ave, Leonardo, NJ 07737", "732-890-0378", "https://www.middletownnj.org/mtfd", 40.41835, -74.05484),
+    ("Port Monmouth Fire Company", "Middletown", "125 Main St, Port Monmouth, NJ 07758", "732-890-0378", "https://www.middletownnj.org/mtfd", 40.43017, -74.09807),
+    ("East Keansburg Fire Company", "Middletown", "214 Thompson Ave, North Middletown, NJ 07748", "732-890-0378", "https://www.middletownnj.org/mtfd", 40.43606, -74.11315),
+    ("Fair Haven Fire Company No. 1", "Fair Haven", "645 River Rd, Fair Haven, NJ 07704", "", "https://fhfd.org/", 40.36207, -74.04075),
+    ("Rumson Fire Company", "Rumson", "140 E River Rd, Rumson, NJ 07760", "", "", 40.37175, -73.99926),
+    ("Oceanic Hook & Ladder Company", "Rumson", "45 W River Rd, Rumson, NJ 07760", "", "", 40.37501, -74.01214),
+    ("Holmdel Fire & Rescue Company No. 2", "Holmdel", "11-13 Centerville Rd, Holmdel, NJ 07733", "", "https://hfrc2.org/", 40.40886, -74.15685),
 ]
 _fd_json = json.dumps([dict(zip(["name", "town", "addr", "phone", "web", "lat", "lng"], d)) for d in FIRE_DEPTS])
 _fd_rows = "".join(
