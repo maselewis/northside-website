@@ -110,13 +110,13 @@ home = HEAD.format(title="Northside Engine Company No. 4 | Tinton Falls, NJ", de
 <div>
 <span class="chip">Volunteer fire company · Since 1955</span>
 <h1>Your neighbors, ready when you call.</h1>
-<p>Northside Engine Company No. 4 has protected Tinton Falls since 1955. We answer 300+ calls a year, any day, any hour.</p>
+<p>Northside Engine Company No. 4 has protected Tinton Falls since 1955. We answer 400+ calls a year, any day, any hour.</p>
 <div class="actions"><a class="btn btn-primary" href="join-northside.html">Join our team</a><a class="btn btn-outline" href="donate.html">Make a donation</a></div>
 </div>
 <div class="hero-photo">{img("background-images/1218312023.jpg", "Northside fire apparatus lined up outside Station 4")}</div>
 </div></section>
 <section class="stats"><div class="wrap">
-<div><b>1955</b><span>Year chartered</span></div><div><b>300+</b><span>Calls each year</span></div>
+<div><b>1955</b><span>Year chartered</span></div><div><b>400+</b><span>Calls each year</span></div>
 <div><b>15 yrs</b><span>Average experience</span></div><div><b>100%</b><span>Volunteer</span></div>
 </div></section>
 <section class="section"><div class="wrap split">
@@ -146,7 +146,7 @@ home = HEAD.format(title="Northside Engine Company No. 4 | Tinton Falls, NJ", de
 # ---------------- ABOUT ----------------
 page("about-us.html", "About Northside", f'''
 <p class="lede">Northside Engine Company (NSEC) is a group of volunteers from the community that has been a part of the Borough of Tinton Falls’ fire protection since 1955. Northside is one of the four Tinton Falls fire departments — and the youngest.</p>
-<p>We respond to 300+ calls every year no matter the day or time. Our members have on average 15 years of experience, and attend monthly drills and annual training events to maintain the skills necessary to operate the equipment and protect the borough in the event of an emergency. We are all proud to be here, to serve our neighbors when they call.</p>
+<p>We respond to 400+ calls every year no matter the day or time. Our members have on average 15 years of experience, and attend monthly drills and annual training events to maintain the skills necessary to operate the equipment and protect the borough in the event of an emergency. We are all proud to be here, to serve our neighbors when they call.</p>
 {fig("tintonlogo_orig.jpg")}
 <h2>Around Northside</h2>
 <div class="cards" style="grid-template-columns:repeat(2,1fr)">
@@ -286,7 +286,7 @@ page("dashboard.html", "Member Dashboard", f'''
 page("join-northside.html", "Join Northside", f'''
 <div class="recruit-banner"><b>Northside is looking for volunteers.</b> No experience needed. Training is free. <a href="#interest">Tell us you’re interested →</a></div>
 <p class="es-link" lang="es">¿Habla español? <a href="#espanol">Información en español ↓</a></p>
-<p class="lede">Northside Engine Company No. 4 has protected Tinton Falls since 1955, and every member is a volunteer. We answer 300+ calls a year, and we need neighbors who want to learn real skills, make a difference close to home, and be part of a crew that has each other’s backs.</p>
+<p class="lede">Northside Engine Company No. 4 has protected Tinton Falls since 1955, and every member is a volunteer. We answer 400+ calls a year, and we need neighbors who want to learn real skills, make a difference close to home, and be part of a crew that has each other’s backs.</p>
 <div class="stat-band">
 <div><b>62%</b><span>of U.S. firefighters are volunteers</span></div>
 <div><b>3×</b><span>more calls than 40 years ago</span></div>
